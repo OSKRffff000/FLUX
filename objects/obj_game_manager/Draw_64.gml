@@ -1,6 +1,6 @@
 draw_set_alpha(1); draw_set_color(c_white);
 draw_set_halign(fa_left); draw_set_valign(fa_top);
-if (state == "playing" || state == "tree") exit;
+if (state == "playing" || state == "tree" || state == "dying") exit;
 draw_set_color(c_black); draw_set_alpha(0.94); draw_rectangle(0,0,720,1280,false);
 draw_set_alpha(1); draw_set_color(c_white);
 draw_text(30,60,"FLUX");

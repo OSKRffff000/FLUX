@@ -1,84 +1,434 @@
 {
-  "$GMProject":"v1",
-  "%Name":"juegojuegojuego",
-  "AudioGroups":[
-    {"$GMAudioGroup":"v1","%Name":"audiogroup_default","exportDir":"","name":"audiogroup_default","resourceType":"GMAudioGroup","resourceVersion":"2.0","targets":-1,},
+  "$GMProject": "v1",
+  "%Name": "juegojuegojuego",
+  "AudioGroups": [
+    {
+      "$GMAudioGroup": "v1",
+      "%Name": "audiogroup_default",
+      "exportDir": "",
+      "name": "audiogroup_default",
+      "resourceType": "GMAudioGroup",
+      "resourceVersion": "2.0",
+      "targets": -1
+    }
   ],
-  "configs":{
-    "children":[],
-    "name":"Default",
+  "configs": {
+    "children": [],
+    "name": "Default"
   },
-  "defaultScriptType":0,
-  "Folders":[
-    {"$GMFolder":"","%Name":"Backgrounds","folderPath":"folders/Backgrounds.yy","name":"Backgrounds","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"Fonts","folderPath":"folders/Fonts.yy","name":"Fonts","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"Notes","folderPath":"folders/Notes.yy","name":"Notes","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"Objects","folderPath":"folders/Objects.yy","name":"Objects","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"Rooms","folderPath":"folders/Rooms.yy","name":"Rooms","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"Scripts","folderPath":"folders/Scripts.yy","name":"Scripts","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"Sonidos","folderPath":"folders/Sonidos.yy","name":"Sonidos","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"Sprites","folderPath":"folders/Sprites.yy","name":"Sprites","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"Planetas","folderPath":"folders/Sprites/Planetas.yy","name":"Planetas","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"Tilesets","folderPath":"folders/Tilesets.yy","name":"Tilesets","resourceType":"GMFolder","resourceVersion":"2.0",},
+  "defaultScriptType": 0,
+  "Folders": [
+    {
+      "$GMFolder": "",
+      "%Name": "Backgrounds",
+      "folderPath": "folders/Backgrounds.yy",
+      "name": "Backgrounds",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "Fonts",
+      "folderPath": "folders/Fonts.yy",
+      "name": "Fonts",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "Notes",
+      "folderPath": "folders/Notes.yy",
+      "name": "Notes",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "Objects",
+      "folderPath": "folders/Objects.yy",
+      "name": "Objects",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "Rooms",
+      "folderPath": "folders/Rooms.yy",
+      "name": "Rooms",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "Scripts",
+      "folderPath": "folders/Scripts.yy",
+      "name": "Scripts",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "Sonidos",
+      "folderPath": "folders/Sonidos.yy",
+      "name": "Sonidos",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "Sprites",
+      "folderPath": "folders/Sprites.yy",
+      "name": "Sprites",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "Planetas",
+      "folderPath": "folders/Sprites/Planetas.yy",
+      "name": "Planetas",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    },
+    {
+      "$GMFolder": "",
+      "%Name": "Tilesets",
+      "folderPath": "folders/Tilesets.yy",
+      "name": "Tilesets",
+      "resourceType": "GMFolder",
+      "resourceVersion": "2.0"
+    }
   ],
-  "ForcedPrefabProjectReferences":[],
-  "IncludedFiles":[
-    {"$GMIncludedFile":"","%Name":"GridlitePEVFTRIAL-All.ttf","CopyToMask":-1,"filePath":"datafiles","name":"GridlitePEVFTRIAL-All.ttf","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+  "ForcedPrefabProjectReferences": [],
+  "IncludedFiles": [
+    {
+      "$GMIncludedFile": "",
+      "%Name": "GridlitePEVFTRIAL-All.ttf",
+      "CopyToMask": -1,
+      "filePath": "datafiles",
+      "name": "GridlitePEVFTRIAL-All.ttf",
+      "resourceType": "GMIncludedFile",
+      "resourceVersion": "2.0"
+    }
   ],
-  "isEcma":false,
-  "LibraryEmitters":[],
-  "MetaData":{
-    "IDEVersion":"2026.100.0.1142",
+  "isEcma": false,
+  "LibraryEmitters": [],
+  "MetaData": {
+    "IDEVersion": "2026.100.0.1142"
   },
-  "name":"juegojuegojuego",
-  "resources":[
-    {"id":{"name":"Font1","path":"fonts/Font1/Font1.yy",},},
-    {"id":{"name":"obj_ataque_planeta","path":"objects/obj_ataque_planeta/obj_ataque_planeta.yy",},},
-    {"id":{"name":"obj_boton_reset","path":"objects/obj_boton_reset/obj_boton_reset.yy",},},
-    {"id":{"name":"obj_buff","path":"objects/obj_buff/obj_buff.yy",},},
-    {"id":{"name":"obj_disparo","path":"objects/obj_disparo/obj_disparo.yy",},},
-    {"id":{"name":"obj_efecto_impacto_bomba","path":"objects/obj_efecto_impacto_bomba/obj_efecto_impacto_bomba.yy",},},
-    {"id":{"name":"obj_fx","path":"objects/obj_fx/obj_fx.yy",},},
-    {"id":{"name":"obj_game_manager","path":"objects/obj_game_manager/obj_game_manager.yy",},},
-    {"id":{"name":"obj_hud","path":"objects/obj_hud/obj_hud.yy",},},
-    {"id":{"name":"obj_laser_planeta","path":"objects/obj_laser_planeta/obj_laser_planeta.yy",},},
-    {"id":{"name":"obj_menu_arbol","path":"objects/obj_menu_arbol/obj_menu_arbol.yy",},},
-    {"id":{"name":"obj_nave","path":"objects/obj_nave/obj_nave.yy",},},
-    {"id":{"name":"obj_onda","path":"objects/obj_onda/obj_onda.yy",},},
-    {"id":{"name":"obj_planeta","path":"objects/obj_planeta/obj_planeta.yy",},},
-    {"id":{"name":"obj_proyectil_espiral","path":"objects/obj_proyectil_espiral/obj_proyectil_espiral.yy",},},
-    {"id":{"name":"obj_punto","path":"objects/obj_punto/obj_punto.yy",},},
-    {"id":{"name":"obj_spawner_buffs","path":"objects/obj_spawner_buffs/obj_spawner_buffs.yy",},},
-    {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
-    {"id":{"name":"flux_core","path":"scripts/flux_core/flux_core.yy",},},
-    {"id":{"name":"scr_resetear_progreso","path":"scripts/scr_resetear_progreso/scr_resetear_progreso.yy",},},
-    {"id":{"name":"snd_aceptar_evo","path":"sounds/snd_aceptar_evo/snd_aceptar_evo.yy",},},
-    {"id":{"name":"snd_bombas","path":"sounds/snd_bombas/snd_bombas.yy",},},
-    {"id":{"name":"snd_carga_laser","path":"sounds/snd_carga_laser/snd_carga_laser.yy",},},
-    {"id":{"name":"snd_destruccion_planeta","path":"sounds/snd_destruccion_planeta/snd_destruccion_planeta.yy",},},
-    {"id":{"name":"snd_destruccion_planeta2","path":"sounds/snd_destruccion_planeta2/snd_destruccion_planeta2.yy",},},
-    {"id":{"name":"snd_laser","path":"sounds/snd_laser/snd_laser.yy",},},
-    {"id":{"name":"snd_menu_seleccion","path":"sounds/snd_menu_seleccion/snd_menu_seleccion.yy",},},
-    {"id":{"name":"snd_menu_seleccion2","path":"sounds/snd_menu_seleccion2/snd_menu_seleccion2.yy",},},
-    {"id":{"name":"snd_menu_seleccion3","path":"sounds/snd_menu_seleccion3/snd_menu_seleccion3.yy",},},
-    {"id":{"name":"snd_menu","path":"sounds/snd_menu/snd_menu.yy",},},
-    {"id":{"name":"snd_playing_epic","path":"sounds/snd_playing_epic/snd_playing_epic.yy",},},
-    {"id":{"name":"snd_playing_epic2","path":"sounds/snd_playing_epic2/snd_playing_epic2.yy",},},
-    {"id":{"name":"snd_playing","path":"sounds/snd_playing/snd_playing.yy",},},
-    {"id":{"name":"spr_planeta1","path":"sprites/spr_planeta1/spr_planeta1.yy",},},
-    {"id":{"name":"spr_planeta2","path":"sprites/spr_planeta2/spr_planeta2.yy",},},
-    {"id":{"name":"spr_planeta3","path":"sprites/spr_planeta3/spr_planeta3.yy",},},
-    {"id":{"name":"spr_planeta4","path":"sprites/spr_planeta4/spr_planeta4.yy",},},
-    {"id":{"name":"spr_planeta5","path":"sprites/spr_planeta5/spr_planeta5.yy",},},
-    {"id":{"name":"spr_planeta6","path":"sprites/spr_planeta6/spr_planeta6.yy",},},
+  "name": "juegojuegojuego",
+  "resources": [
+    {
+      "id": {
+        "name": "Font1",
+        "path": "fonts/Font1/Font1.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_ataque_planeta",
+        "path": "objects/obj_ataque_planeta/obj_ataque_planeta.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_boton_reset",
+        "path": "objects/obj_boton_reset/obj_boton_reset.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_buff",
+        "path": "objects/obj_buff/obj_buff.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_disparo",
+        "path": "objects/obj_disparo/obj_disparo.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_efecto_impacto_bomba",
+        "path": "objects/obj_efecto_impacto_bomba/obj_efecto_impacto_bomba.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_fx",
+        "path": "objects/obj_fx/obj_fx.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_game_manager",
+        "path": "objects/obj_game_manager/obj_game_manager.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_hud",
+        "path": "objects/obj_hud/obj_hud.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_laser_planeta",
+        "path": "objects/obj_laser_planeta/obj_laser_planeta.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_menu_arbol",
+        "path": "objects/obj_menu_arbol/obj_menu_arbol.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_nave",
+        "path": "objects/obj_nave/obj_nave.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_onda",
+        "path": "objects/obj_onda/obj_onda.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_planeta",
+        "path": "objects/obj_planeta/obj_planeta.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_proyectil_espiral",
+        "path": "objects/obj_proyectil_espiral/obj_proyectil_espiral.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_punto",
+        "path": "objects/obj_punto/obj_punto.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_spawner_buffs",
+        "path": "objects/obj_spawner_buffs/obj_spawner_buffs.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "Room1",
+        "path": "rooms/Room1/Room1.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "flux_core",
+        "path": "scripts/flux_core/flux_core.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "scr_resetear_progreso",
+        "path": "scripts/scr_resetear_progreso/scr_resetear_progreso.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "snd_aceptar_evo",
+        "path": "sounds/snd_aceptar_evo/snd_aceptar_evo.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "snd_bombas",
+        "path": "sounds/snd_bombas/snd_bombas.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "snd_carga_laser",
+        "path": "sounds/snd_carga_laser/snd_carga_laser.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "snd_choque_panel",
+        "path": "sounds/snd_choque_panel/snd_choque_panel.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "snd_destruccion_planeta",
+        "path": "sounds/snd_destruccion_planeta/snd_destruccion_planeta.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "snd_destruccion_planeta2",
+        "path": "sounds/snd_destruccion_planeta2/snd_destruccion_planeta2.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "snd_golpe_muerte",
+        "path": "sounds/snd_golpe_muerte/snd_golpe_muerte.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "snd_laser",
+        "path": "sounds/snd_laser/snd_laser.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "snd_menu_seleccion",
+        "path": "sounds/snd_menu_seleccion/snd_menu_seleccion.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "snd_menu_seleccion2",
+        "path": "sounds/snd_menu_seleccion2/snd_menu_seleccion2.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "snd_menu_seleccion3",
+        "path": "sounds/snd_menu_seleccion3/snd_menu_seleccion3.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "snd_menu",
+        "path": "sounds/snd_menu/snd_menu.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "snd_muerte_explosion",
+        "path": "sounds/snd_muerte_explosion/snd_muerte_explosion.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "snd_panel_cerrado",
+        "path": "sounds/snd_panel_cerrado/snd_panel_cerrado.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "snd_panel",
+        "path": "sounds/snd_panel/snd_panel.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "snd_playing_epic",
+        "path": "sounds/snd_playing_epic/snd_playing_epic.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "snd_playing_epic2",
+        "path": "sounds/snd_playing_epic2/snd_playing_epic2.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "snd_playing",
+        "path": "sounds/snd_playing/snd_playing.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_planeta1",
+        "path": "sprites/spr_planeta1/spr_planeta1.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_planeta2",
+        "path": "sprites/spr_planeta2/spr_planeta2.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_planeta3",
+        "path": "sprites/spr_planeta3/spr_planeta3.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_planeta4",
+        "path": "sprites/spr_planeta4/spr_planeta4.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_planeta5",
+        "path": "sprites/spr_planeta5/spr_planeta5.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "spr_planeta6",
+        "path": "sprites/spr_planeta6/spr_planeta6.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_secuencia_muerte",
+        "path": "objects/obj_secuencia_muerte/obj_secuencia_muerte.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_fragmento_nave",
+        "path": "objects/obj_fragmento_nave/obj_fragmento_nave.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "shd_muerte_gris",
+        "path": "shaders/shd_muerte_gris/shd_muerte_gris.yy"
+      }
+    }
   ],
-  "resourceType":"GMProject",
-  "resourceVersion":"2.0",
-  "RoomOrderNodes":[
-    {"roomId":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
+  "resourceType": "GMProject",
+  "resourceVersion": "2.0",
+  "RoomOrderNodes": [
+    {
+      "roomId": {
+        "name": "Room1",
+        "path": "rooms/Room1/Room1.yy"
+      }
+    }
   ],
-  "templateType":"game",
-  "TextureGroups":[
-    {"$GMTextureGroup":"","%Name":"Default","autocrop":true,"border":2,"compressFormat":"bz2","customOptions":"","directory":"","groupParent":null,"isScaled":true,"loadType":"default","mipsToGenerate":0,"name":"Default","resourceType":"GMTextureGroup","resourceVersion":"2.0","targets":-1,},
-  ],
+  "templateType": "game",
+  "TextureGroups": [
+    {
+      "$GMTextureGroup": "",
+      "%Name": "Default",
+      "autocrop": true,
+      "border": 2,
+      "compressFormat": "bz2",
+      "customOptions": "",
+      "directory": "",
+      "groupParent": null,
+      "isScaled": true,
+      "loadType": "default",
+      "mipsToGenerate": 0,
+      "name": "Default",
+      "resourceType": "GMTextureGroup",
+      "resourceVersion": "2.0",
+      "targets": -1
+    }
+  ]
 }

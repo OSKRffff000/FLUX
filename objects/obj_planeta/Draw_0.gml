@@ -1,4 +1,4 @@
-if(gm.state!="playing" && gm.state!="dead") exit;
+if(gm.state!="playing" && gm.state!="dead" && gm.state!="dying") exit;
 var _old_colour=draw_get_color(),_old_alpha=draw_get_alpha();
 var _health=clamp(hp/max_hp,0,1);
 var _inner=radius+16;

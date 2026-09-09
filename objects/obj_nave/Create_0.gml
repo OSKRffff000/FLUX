@@ -22,7 +22,8 @@ lethal_hit=function(_source) {
         if(instance_exists(_source)) with(_source) instance_destroy();
         flux_burst(x,y,c_white,24);return false;
     }
-    flux_burst(x,y,c_white,40);gm.state="dead";gm.sync_music();gm.save_progress();instance_destroy();return true;
+    if(!instance_exists(obj_secuencia_muerte)) instance_create_depth(0,0,-1000,obj_secuencia_muerte);
+    return true;
 };
 fire_bullet=function(_x,_y,_missile) {
     var _p=instance_create_depth(_x,_y,-5,obj_disparo);

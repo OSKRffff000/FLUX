@@ -99,6 +99,8 @@ buy_pet = function(_p) {
     equipped_pet = _p; rebuild_stats(); save_progress(); notice = "Mascota equipada.";
 };
 start_run = function() {
+    with(obj_secuencia_muerte) instance_destroy();
+    with(obj_fragmento_nave) instance_destroy();
     with (obj_nave) instance_destroy();
     with (obj_planeta) instance_destroy();
     with (obj_disparo) instance_destroy();

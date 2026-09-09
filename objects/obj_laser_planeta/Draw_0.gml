@@ -1,4 +1,4 @@
-if(global.flux.state!="playing") exit;
+if(global.flux.state!="playing" && global.flux.state!="dying") exit;
 if(instance_exists(obj_nave) && obj_nave.buff_active(FluxBuff.Apagon)) exit;
 var _old_colour=draw_get_color(),_old_alpha=draw_get_alpha();
 draw_set_color(c_white);

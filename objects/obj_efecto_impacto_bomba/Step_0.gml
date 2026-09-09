@@ -1,3 +1,4 @@
+if(global.flux.state=="dying") exit;
 // Se disipa también si el jugador muere durante el impacto.
 image_xscale-=shrink_rate*flux_dt();
 image_yscale=image_xscale;

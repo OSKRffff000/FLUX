@@ -33,6 +33,8 @@ function scr_resetear_progreso() {
         _gm.rebuild_stats();
     }
     // Elimina también estado temporal: escudo, buffs y armas de la partida.
+    with(obj_secuencia_muerte) instance_destroy();
+    with(obj_fragmento_nave) instance_destroy();
     with(obj_nave) instance_destroy();
     with(obj_planeta) instance_destroy();
     with(obj_disparo) instance_destroy();

@@ -1,4 +1,4 @@
-if(global.flux.state!="playing" && global.flux.state!="dead") exit;
+if(global.flux.state!="playing" && global.flux.state!="dead" && global.flux.state!="dying") exit;
 var _colour=draw_get_color(),_alpha=draw_get_alpha();
 draw_set_color(c_white);draw_set_alpha(image_alpha);
 draw_circle(x,y,impact_radius*image_xscale,false);
