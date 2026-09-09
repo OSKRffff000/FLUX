@@ -399,6 +399,18 @@
         "name": "shd_muerte_gris",
         "path": "shaders/shd_muerte_gris/shd_muerte_gris.yy"
       }
+    },
+    {
+      "id": {
+        "name": "obj_boton_configuracion",
+        "path": "objects/obj_boton_configuracion/obj_boton_configuracion.yy"
+      }
+    },
+    {
+      "id": {
+        "name": "obj_menu_configuracion",
+        "path": "objects/obj_menu_configuracion/obj_menu_configuracion.yy"
+      }
     }
   ],
   "resourceType": "GMProject",

@@ -15,7 +15,7 @@ if(attack_state=="cooldown") {
             laser_ids=[];
             // Fijar el ángulo objetivo al anunciar la pinza permite escapar cambiando de lado.
             var _target=instance_exists(obj_nave) ? obj_nave.orbit_angle : random(360);
-            audio_play_sound(snd_laser,8,false);
+            flux_play_sfx(snd_laser,8);
             for(var _side=-1;_side<=1;_side+=2) {
                 var _laser=instance_create_depth(x,y,20,obj_laser_planeta);
                 _laser.owner=id;_laser.telegraph=2;_laser.life=4;

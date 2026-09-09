@@ -1,6 +1,6 @@
 // Mouse/Tap sin máscara de sprite: dispositivo 0 admite ratón y toque principal.
 if(reset_in_progress || !instance_exists(global.flux)) exit;
-if(global.flux.state!="menu") exit;
+if(global.flux.state!="settings") exit;
 if(device_mouse_check_button_pressed(0,mb_left)
     && flux_click_inside(gui_x,gui_y,button_width,button_height)) {
     reset_in_progress=true;

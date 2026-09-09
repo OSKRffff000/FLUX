@@ -2,15 +2,15 @@ var _dt=delta_time/1000000;elapsed+=_dt;
 if(!exploded && elapsed>=1.5) {
     exploded=true;
     with(obj_nave) instance_destroy();
-    audio_play_sound(snd_muerte_explosion,10,false);
+    flux_play_sfx(snd_muerte_explosion,10);
     repeat(22) instance_create_depth(ship_x,ship_y,-45,obj_fragmento_nave);
-    audio_play_sound(snd_panel,9,false);
+    flux_play_sfx(snd_panel,9);
 }
 if(!lower_started && elapsed>=2) {
-    lower_started=true;audio_play_sound(snd_panel,9,false);
+    lower_started=true;flux_play_sfx(snd_panel,9);
 }
 if(!closed && elapsed>=3) {
-    closed=true;audio_play_sound(snd_panel_cerrado,10,false);
+    closed=true;flux_play_sfx(snd_panel_cerrado,10);
 }
 if(!device_mouse_check_button(0,mb_left)) input_ready=true;
 for(var _i=0;_i<2;++_i) {

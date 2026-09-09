@@ -20,7 +20,7 @@ if(instance_exists(obj_planeta)) {
             var _contact_angle=point_direction(_p.x,_p.y,_px+_dx*_t,_py+_dy*_t);
             var _hit_x=_p.x+lengthdir_x(_p.radius,_contact_angle);
             var _hit_y=_p.y+lengthdir_y(_p.radius,_contact_angle);
-            audio_play_sound(snd_bombas,8,false);
+            flux_play_sfx(snd_bombas,8);
             global.flux.add_bomb_shake(1.8);
             instance_create_depth(_hit_x,_hit_y,-35,obj_efecto_impacto_bomba);
         }

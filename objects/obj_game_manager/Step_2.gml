@@ -1,3 +1,5 @@
+for(var _voice_i=array_length(sfx_voices)-1;_voice_i>=0;--_voice_i)
+    if(!audio_is_playing(sfx_voices[_voice_i])) array_delete(sfx_voices,_voice_i,1);
 // End Step: detecta entrar a jugar, morir o regresar a cualquier menú.
 sync_music();
 

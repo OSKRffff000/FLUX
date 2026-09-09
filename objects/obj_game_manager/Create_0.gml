@@ -1,4 +1,6 @@
 global.flux = id;
+global.vol_maestro=1;global.vol_musica=1;global.vol_sfx=1;
+sfx_voices=[];
 display_set_gui_size(720, 1280);
 randomize();
 state = "menu";
@@ -30,6 +32,9 @@ pets = [
 ];
 save_progress = function() {
     ini_open("flux_save.ini");
+    ini_write_real("audio","master",global.vol_maestro);
+    ini_write_real("audio","music",global.vol_musica);
+    ini_write_real("audio","sfx",global.vol_sfx);
     ini_write_real("player", "coins", coins);
     ini_write_real("player", "points", skill_points);
     ini_write_real("player", "pet", equipped_pet);
@@ -121,6 +126,9 @@ start_run = function() {
 };
 if (file_exists("flux_save.ini")) {
     ini_open("flux_save.ini");
+    global.vol_maestro=clamp(ini_read_real("audio","master",1),0,1);
+    global.vol_musica=clamp(ini_read_real("audio","music",1),0,1);
+    global.vol_sfx=clamp(ini_read_real("audio","sfx",1),0,1);
     coins = max(0, floor(ini_read_real("player", "coins", 0)));
     skill_points = max(0, floor(ini_read_real("player", "points", 0)));
     for (var _b = 0; _b < 5; ++_b) {
@@ -146,9 +154,9 @@ instance_create_depth(0,0,-110,obj_menu_arbol);
 
 ship_sprites=array_create(6,-1);ship_sprites_ready=false;
 
-instance_create_depth(0,0,-120,obj_boton_reset);
 
-instance_create_depth(0,0,-120,obj_boton_reset);
+
+
 
 // Cámara del mundo; GUI independiente y centro estable sin acumular desplazamientos.
 world_camera=camera_create_view(0,0,room_width,room_height,0,noone,-1,-1,-1,-1);
@@ -173,5 +181,19 @@ sync_music=function() {
     if(bgm_instance!=-1) audio_stop_sound(bgm_instance);
     bgm_asset=_desired;
     bgm_instance=audio_play_sound(bgm_asset,1,true);
+    audio_sound_gain(bgm_instance,global.vol_musica,0);
 };
+audio_master_gain(global.vol_maestro);
 sync_music();
+apply_audio_settings=function() {
+    // El master multiplica ambos canales desde el motor, una sola vez.
+    audio_master_gain(global.vol_maestro);
+    if(bgm_instance!=-1) audio_sound_gain(bgm_instance,global.vol_musica,0);
+    for(var _i=array_length(sfx_voices)-1;_i>=0;--_i) {
+        if(audio_is_playing(sfx_voices[_i])) audio_sound_gain(sfx_voices[_i],global.vol_sfx,0);
+        else array_delete(sfx_voices,_i,1);
+    }
+};
+instance_create_depth(0,0,-120,obj_boton_configuracion);
+instance_create_depth(0,0,-110,obj_menu_configuracion);
+instance_create_depth(0,0,-120,obj_boton_reset);

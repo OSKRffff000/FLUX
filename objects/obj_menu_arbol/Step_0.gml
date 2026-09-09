@@ -37,7 +37,7 @@ if(dragging) {
             var _wx=cam_x+(_mx-360)/zoom,_wy=cam_y+(_my-630)/zoom;
             for(var _i=0;_i<array_length(nodes);++_i) {
                 var _n=nodes[_i];
-                if(point_distance(_wx,_wy,_n.wx,_n.wy)<=max(38,22/zoom)) { audio_play_sound(snd_menu_seleccion,10,false);gm.buy_node(_n.branch,_n.level);break; }
+                if(point_distance(_wx,_wy,_n.wx,_n.wy)<=max(38,22/zoom)) { flux_play_sfx(snd_menu_seleccion,10);gm.buy_node(_n.branch,_n.level);break; }
             }
         }
     }

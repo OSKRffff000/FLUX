@@ -127,6 +127,13 @@ function flux_sweep_hit(_laser,_ship) {
 // Recursos reales de Sounds: snd_menu_seleccion, snd_menu y snd_playing.
 function flux_click_inside(_x,_y,_w,_h) {
     if(!flux_inside(_x,_y,_w,_h)) return false;
-    audio_play_sound(snd_menu_seleccion,10,false);
+    flux_play_sfx(snd_menu_seleccion,10);
     return true;
+}
+
+function flux_play_sfx(_sound,_priority) {
+    var _voice=audio_play_sound(_sound,_priority,false);
+    audio_sound_gain(_voice,global.vol_sfx,0);
+    array_push(global.flux.sfx_voices,_voice);
+    return _voice;
 }
