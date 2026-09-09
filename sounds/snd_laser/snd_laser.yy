@@ -14,8 +14,8 @@
   "exportDir":"",
   "name":"snd_laser",
   "parent":{
-    "name":"Sonidos",
-    "path":"folders/Sonidos.yy",
+    "name":"Planetas",
+    "path":"folders/Sonidos/Planetas.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

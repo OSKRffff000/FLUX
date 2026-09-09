@@ -14,8 +14,8 @@
   "exportDir":"",
   "name":"snd_playing",
   "parent":{
-    "name":"Sonidos",
-    "path":"folders/Sonidos.yy",
+    "name":"Musica",
+    "path":"folders/Sonidos/Musica.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

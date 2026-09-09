@@ -14,8 +14,8 @@
   "exportDir":"",
   "name":"snd_menu_seleccion2",
   "parent":{
-    "name":"Sonidos",
-    "path":"folders/Sonidos.yy",
+    "name":"Menu",
+    "path":"folders/Sonidos/Menu.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

@@ -14,8 +14,8 @@
   "exportDir":"",
   "name":"snd_choque_panel",
   "parent":{
-    "name":"Sonidos",
-    "path":"folders/Sonidos.yy",
+    "name":"Menu",
+    "path":"folders/Sonidos/Menu.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

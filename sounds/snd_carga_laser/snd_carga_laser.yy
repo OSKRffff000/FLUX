@@ -14,8 +14,8 @@
   "exportDir":"",
   "name":"snd_carga_laser",
   "parent":{
-    "name":"Sonidos",
-    "path":"folders/Sonidos.yy",
+    "name":"Disparos",
+    "path":"folders/Sonidos/Disparos.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

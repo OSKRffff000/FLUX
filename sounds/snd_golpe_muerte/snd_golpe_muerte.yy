@@ -14,8 +14,8 @@
   "exportDir":"",
   "name":"snd_golpe_muerte",
   "parent":{
-    "name":"Sonidos",
-    "path":"folders/Sonidos.yy",
+    "name":"Muerte",
+    "path":"folders/Sonidos/Muerte.yy",
   },
   "preload":false,
   "resourceType":"GMSound",
