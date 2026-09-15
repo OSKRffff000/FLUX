@@ -74,8 +74,8 @@
   "nineSlice":null,
   "origin":0,
   "parent":{
-    "name":"Planetas",
-    "path":"folders/Sprites/Planetas.yy",
+    "name":"Planetas_Juego",
+    "path":"folders/Sprites/Planetas/Planetas_Juego.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

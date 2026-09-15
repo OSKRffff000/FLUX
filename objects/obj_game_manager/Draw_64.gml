@@ -1,18 +1,11 @@
 draw_set_alpha(1); draw_set_color(c_white);
 draw_set_halign(fa_left); draw_set_valign(fa_top);
-if (state == "playing" || state == "tree" || state == "dying" || state == "settings") exit;
+if (state == "playing" || state == "tree" || state == "dying" || state == "settings" || state == "credits" || state == "menu" || state == "menu_transition") exit;
 draw_set_color(c_black); draw_set_alpha(0.94); draw_rectangle(0,0,720,1280,false);
 draw_set_alpha(1); draw_set_color(c_white);
 draw_text(30,60,"FLUX");
-draw_text(30,105,"Creditos: " + string(coins) + "    Puntos disponibles: " + string(skill_points));
+
 switch (state) {
-    case "menu":
-        draw_text(160,290,"Orbita. Esquiva. Sobrevive.");
-        flux_button(160,440,400,80,"Jugar",true);
-        flux_button(160,550,400,80,"Arbol de Mejoras",true);
-        flux_button(160,660,400,80,"Tienda de Mascotas",true);
-        draw_text(70,840,"Cada planeta otorga 20 creditos y 1 punto de mejora.");
-        break;
     case "dead":
         draw_text(160,400,"Nave destruida");
         flux_button(160,550,400,80,"Continuar/Reintentar",true);

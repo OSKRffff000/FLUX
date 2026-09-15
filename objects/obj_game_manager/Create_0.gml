@@ -176,11 +176,11 @@ reset_camera=function() {
 bgm_instance=-1;bgm_asset=-1;
 sync_music=function() {
     if(state!="playing") reset_camera();
-    var _desired=state=="playing" ? snd_playing : snd_menu;
-    if(bgm_asset==_desired && audio_is_playing(bgm_instance)) return;
+    var _desired=state=="credits" ? snd_creditos : (state=="playing" ? snd_playing : snd_menu);
+    if(bgm_asset==_desired && (state=="credits" || audio_is_playing(bgm_instance))) return;
     if(bgm_instance!=-1) audio_stop_sound(bgm_instance);
     bgm_asset=_desired;
-    bgm_instance=audio_play_sound(bgm_asset,1,true);
+    bgm_instance=audio_play_sound(bgm_asset,1,state!="credits");
     audio_sound_gain(bgm_instance,global.vol_musica,0);
 };
 audio_master_gain(global.vol_maestro);
@@ -194,6 +194,10 @@ apply_audio_settings=function() {
         else array_delete(sfx_voices,_i,1);
     }
 };
-instance_create_depth(0,0,-120,obj_boton_configuracion);
+
 instance_create_depth(0,0,-110,obj_menu_configuracion);
 instance_create_depth(0,0,-120,obj_boton_reset);
+
+
+
+instance_create_depth(0,0,-125,obj_menu_manager);

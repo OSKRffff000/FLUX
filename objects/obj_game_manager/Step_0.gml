@@ -1,10 +1,7 @@
 if (!device_mouse_check_button_pressed(0, mb_left)) exit;
 switch (state) {
     case "menu":
-        if (flux_click_inside(160,440,400,80)) start_run();
-        else if (flux_click_inside(160,550,400,80)) { state="tree"; notice=""; }
-        else if (flux_click_inside(160,660,400,80)) { state="shop"; notice=""; }
-        break;
+    case "menu_transition":break; // Controlados por obj_menu_manager.
     case "dead":
         if (flux_click_inside(160,550,400,80)) start_run();
         else if (flux_click_inside(160,660,400,80)) { state="tree"; notice=""; }
