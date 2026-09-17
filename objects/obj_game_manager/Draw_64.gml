@@ -15,7 +15,7 @@ switch (state) {
     case "evolution":
         draw_text(70,260,"Evolucion disponible: " + evolution_names[evolution_pending]);
         draw_text_ext(70,640,evolution_descriptions[evolution_pending],28,580);
-        flux_ship_shape(360,480,evolution_pending,90,4);
+        flux_draw_ship(360,480,evolution_pending,90,4,1);
         flux_button(90,850,240,80,"Aceptar",true);
         flux_button(390,850,240,80,"Posponer",true);
         draw_text(70,980,"Puedes aceptar despues desde el arbol.");

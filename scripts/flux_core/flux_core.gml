@@ -62,24 +62,33 @@ function flux_buff_icon(_x,_y,_kind,_size) {
             draw_line_width(_x-_r,_y+_r,_x+_r,_y+_r,3);break;
     }
 }
-function flux_ship_shape(_x,_y,_type,_angle,_scale) {
-    // Siluetas reutilizadas para sprites de nave y vista previa de evolución.
-    var _points;
-    switch(_type) {
-        case 0: _points=[[20,0],[4,-8],[12,-18],[-14,-18],[-9,0],[-14,18],[12,18],[4,8]];break;
-        case 1: _points=[[24,0],[-8,-13],[-2,0],[-8,13]];break;
-        case 2: _points=[[16,0],[5,-22],[-16,-16],[-20,0],[-16,16],[5,22]];break;
-        case 3: _points=[[22,0],[0,-10],[-8,-22],[-18,-20],[-10,0],[-18,20],[-8,22],[0,10]];break;
-        case 4: _points=[[22,0],[0,-22],[-22,0],[0,22]];break;
-        default: _points=[[15,0],[-10,-10],[-6,0],[-10,10]];break;
-    }
-    for(var _i=0;_i<array_length(_points);++_i) {
-        var _p=_points[_i],_q=_points[(_i+1) mod array_length(_points)];
-        var _px=_x+lengthdir_x(_p[0]*_scale,_angle)+lengthdir_x(_p[1]*_scale,_angle+90);
-        var _py=_y+lengthdir_y(_p[0]*_scale,_angle)+lengthdir_y(_p[1]*_scale,_angle+90);
-        var _qx=_x+lengthdir_x(_q[0]*_scale,_angle)+lengthdir_x(_q[1]*_scale,_angle+90);
-        var _qy=_y+lengthdir_y(_q[0]*_scale,_angle)+lengthdir_y(_q[1]*_scale,_angle+90);
-        draw_triangle(_x,_y,_px,_py,_qx,_qy,false);
+function flux_draw_ship(_x,_y,_type,_angle,_scale,_alpha,_split=0) {
+    var _sprite=global.flux.ship_sprites[_type+1];
+    var _width=sprite_get_width(_sprite),_height=sprite_get_height(_sprite);
+    _scale*=global.flux.ship_draw_scale;
+    _angle-=90; // El arte apunta arriba; el angulo de disparo usa 0 a la derecha.
+    if(_split<=0) {
+        // Centrar el lienzo sin cambiar el origen del recurso ni la colision.
+        var _ox=(sprite_get_xoffset(_sprite)-_width*0.5)*_scale;
+        var _oy=(sprite_get_yoffset(_sprite)-_height*0.5)*_scale;
+        draw_sprite_ext(_sprite,0,
+            _x+lengthdir_x(_ox,_angle)+lengthdir_x(_oy,_angle-90),
+            _y+lengthdir_y(_ox,_angle)+lengthdir_y(_oy,_angle-90),
+            _scale,_scale,_angle,c_white,_alpha);
+    } else {
+        // Muerte: separar las alas usando las dimensiones reales del sprite.
+        // draw_sprite_general ignora el origen; cada recorte parte de su esquina.
+        var _half=floor(_width*0.5);
+        for(var _i=0;_i<2;++_i) {
+            var _left=_i*_half,_part_width=(_i==0 ? _half : _width-_half);
+            var _side=_i*2-1;
+            var _ox=(_left-_width*0.5)*_scale+_side*_split;
+            var _oy=-_height*0.5*_scale-_side*2;
+            draw_sprite_general(_sprite,0,_left,0,_part_width,_height,
+                _x+lengthdir_x(_ox,_angle)+lengthdir_x(_oy,_angle-90),
+                _y+lengthdir_y(_ox,_angle)+lengthdir_y(_oy,_angle-90),
+                _scale,_scale,_angle,c_white,c_white,c_white,c_white,_alpha);
+        }
     }
 }
 function flux_explosion(_x,_y,_radius) {

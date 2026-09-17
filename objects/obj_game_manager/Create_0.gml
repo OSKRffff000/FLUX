@@ -152,7 +152,10 @@ evaluate_evolution(false);
 instance_create_depth(0,0,-100,obj_hud);
 instance_create_depth(0,0,-110,obj_menu_arbol);
 
-ship_sprites=array_create(6,-1);ship_sprites_ready=false;
+// Indice = evolution + 1: base (-1), luego las cinco ramas (0..4).
+ship_sprites=[navedefault,NaveArsenalPesado,NaveNucleo,NaveNodriza,NaveBombardero,NaveCondensadorCosmico];
+// Sprites de 70x70 a media escala: mantienen el tamano de juego aproximado.
+ship_draw_scale=0.5;
 
 
 

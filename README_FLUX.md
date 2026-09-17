@@ -13,7 +13,7 @@ Abre `juegojuegojuego.yyp` y ejecuta `Room1` en GameMaker. La sala y GUI usan 72
 - `objects/obj_game_manager/Step_1.gml`: Begin Step actualiza buffs y escala temporal; temporizador de transición planetaria.
 - `objects/obj_planeta/Step_0.gml` y `Draw_0.gml`: daño, anillo de salud, destrucción y ataques.
 - `objects/obj_nave/Create_0.gml`, `Step_0.gml` y `Step_2.gml`: buffs, armas y colisiones en End Step. El escudo no acumula cargas.
-- `scripts/flux_core/flux_core.gml`: enum de buffs, arcos, glifos, siluetas, explosiones y geometría de colisión.
+- `scripts/flux_core/flux_core.gml`: enum de buffs, arcos, glifos, dibujo de sprites de nave, explosiones y geometría de colisión.
 
 ## Ocho potenciadores
 
@@ -44,7 +44,22 @@ Los niveles cuestan 1–6 puntos y requieren el nivel anterior de su rama. Los b
 | Crítico | Bombardero Orbital: misiles con explosión de radio 160 que elimina proyectiles y láseres alcanzados. |
 | Utilidad | Cosechador Cósmico: recoger cualquier buff genera una onda que limpia proyectiles enemigos. |
 
-Aceptar fija la forma; compras posteriores no la sustituyen. Posponer conserva el disparo base y habilita `Ver evolucion` en el árbol. Al reabrir se evalúa la rama dominante actual. La forma aceptada y la decisión de posponer se guardan. Se generan seis sprites monocromáticos (base y cinco evoluciones) al dibujar por primera vez; Clean Up libera esos recursos.
+Aceptar fija la forma; compras posteriores no la sustituyen. Posponer conserva el disparo base y habilita `Ver evolucion` en el árbol. Al reabrir se evalúa la rama dominante actual. La forma aceptada y la decisión de posponer se guardan.
+
+Las naves usan los seis sprites importados, registrados en `obj_game_manager/Create_0.gml` mediante `ship_sprites[evolution + 1]`:
+
+| Evolución | Sprite |
+|---|---|
+| -1: Base | `navedefault` |
+| 0: Arsenal Pesado | `NaveArsenalPesado` |
+| 1: Núcleo Energético | `NaveNucleo` |
+| 2: Nave Nodriza | `NaveNodriza` |
+| 3: Bombardero Orbital | `NaveBombardero` |
+| 4: Cosechador Cósmico | `NaveCondensadorCosmico` |
+
+`flux_draw_ship` centra el lienzo en la posición de la nave, compensa el origen del recurso y gira el arte (que apunta hacia arriba) hacia el planeta. `ship_draw_scale=0.5` muestra los sprites de 70 × 70 a 35 × 35; la vista previa multiplica esa escala por cuatro. La muerte separa las mitades del sprite usando sus dimensiones reales. Se conserva la transparencia de Fantasma. No se generan ni se eliminan sprites durante la partida.
+
+El radio de colisión sigue siendo `hit_radius=8`, independiente del dibujo. Las posiciones de disparo siguen usando `(x,y)` y, para Arsenal, los desplazamientos laterales de -14, 0 y 14 píxeles. No se modificaron los eventos Create, Step ni End Step de `obj_nave`. El archivo importado de `NaveNucleo` contiene un fondo blanco opaco; se conserva el arte original.
 
 Las mascotas sólo se compran: Eco 60 créditos (+15% daño), Pulso 90 (+20% cadencia), Luna 75 (+30% duración). Nodriza eleva estos bonos a 30%, 40% y 60%, respectivamente. Sólo una equipada.
 
@@ -52,7 +67,7 @@ Las mascotas sólo se compran: Eco 60 créditos (+15% daño), Pulso 90 (+20% cad
 
 El anillo pegado al planeta representa `hp / max_hp`. Al agotarse, se elimina la instancia y sus ataques; el manager espera un segundo de tiempo activo sin planeta antes de crear el siguiente. Se usa un temporizador en segundos en lugar de una alarma ligada a frames. Distorsión no prolonga esa transición y los menús la pausan.
 
-Cada planeta recibe un `image_blend` saturado aleatorio con un tono distinto del anterior. Planeta, ataques y sus partículas tienen color; nave, HUD, buffs, mascotas y fondo permanecen monocromáticos.
+Cada planeta recibe un `image_blend` saturado aleatorio con un tono distinto del anterior. Planeta, ataques y sus partículas tienen color; las naves conservan los colores de sus sprites. HUD, buffs, mascotas y fondo permanecen monocromáticos.
 
 Destruir un planeta otorga 20 créditos, un punto de mejora y ocho puntos coleccionables adicionales. `flux_save.ini` conserva compras y progreso; las partidas anteriores de tres niveles se cargan con los nuevos niveles sin comprar. Reintentar limpia entidades y buffs, vuelve al planeta 1 y conserva compras.
 
@@ -60,7 +75,7 @@ Destruir un planeta otorga 20 créditos, un punto de mejora y ocho puntos colecc
 
 `node tests/flux_logic.cjs` comprueba funciones extraídas del GML cuya sintaxis comparte JavaScript: colisiones barridas, cruces de láser, prerrequisitos, umbral de evolución, posponer/reabrir, conservación de elección, saldo y efecto Nodriza. No emula eventos, renderizado ni la semántica completa del motor. También se comprobaron recursos, referencias, eventos y delimitadores.
 
-Este entorno no tiene GameMaker/Igor; falta compilar y probar en el motor. Prueba manual sugerida:
+La sustitución de las naves por sprites se compiló correctamente para Windows VM con GameMaker/Igor 2026.0.0.23. También pasaron las pruebas de lógica y una comprobación aislada de 180 casos de selección, centrado, orientación, escala, transparencia y recortes de muerte. Falta la revisión visual durante una partida. Prueba manual sugerida:
 
 1. Recoger los ocho buffs; revisar arcos, expiración, renovación y combinaciones. Dos impactos consecutivos con escudo deben consumirlo y luego destruir la nave.
 2. Cruzar láseres con Apagón/Fantasma y comprobar el comportamiento al expirar. Comparar movimiento del nivel con y sin Distorsión.
@@ -82,7 +97,7 @@ Este entorno no tiene GameMaker/Igor; falta compilar y probar en el motor. Prueb
 
 `obj_proyectil_espiral` hereda de `obj_ataque_planeta`: comparte colisiones, partículas, destrucción por ondas y limpieza al reintentar. Sus eventos Create y Step permiten configurar `heading`, `velocity` y `turn_rate`. Con `turn_rate=0` sirve para las salvas predictivas. Todos los ataques usan `image_blend` saturado, también en su dibujo por primitivas.
 
-La colisión de `obj_laser_planeta` muestrea el giro y el desplazamiento de la nave entre frames, con una tolerancia de un píxel. Las pruebas aisladas incluyen un barrido que cruza la nave sin tocarla en ninguno de los dos rayos extremos. Queda pendiente probar el balance y compilar en GameMaker: no hay compilador del motor en este entorno.
+La colisión de `obj_laser_planeta` muestrea el giro y el desplazamiento de la nave entre frames, con una tolerancia de un píxel. Las pruebas aisladas incluyen un barrido que cruza la nave sin tocarla en ninguno de los dos rayos extremos. Queda pendiente probar el balance durante una partida.
 
 ## Borrar progreso
 
