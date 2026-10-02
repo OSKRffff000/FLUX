@@ -10,7 +10,11 @@ if(gm.state!="playing") exit;
 var _aim=point_direction(x,y,gm.center_x,gm.center_y);
 draw_set_color(c_white);
 // Solo cambia el dibujo; (x,y), los disparos y hit_radius conservan su centro.
-var _alpha=buff_active(FluxBuff.Fantasma) ? 0.35 : 1;
+for(var _e=0;_e<array_length(turn_echoes);++_e) {
+    var _echo=turn_echoes[_e];
+    flux_draw_ship(_echo.px,_echo.py,gm.evolution,_echo.angle,1,0.35*_echo.life/0.2);
+}
+var _alpha=(buff_active(FluxBuff.Fantasma) || turn_immunity>0) ? 0.35 : 1;
 flux_draw_ship(x,y,gm.evolution,_aim,1,_alpha);
 draw_set_alpha(1);
 if(shield_charges>0) draw_circle(x,y,25,true);

@@ -8,6 +8,7 @@ with(obj_buff) {
 // Iteración inversa: consumir un escudo puede eliminar el ataque actual.
 for(var _i=instance_number(obj_ataque_planeta)-1;_i>=0;--_i) {
     var _a=instance_find(obj_ataque_planeta,_i);
+    if(_a.telegraph>0) continue;
     if(flux_segment_hit(_a.prev_x-prev_x,_a.prev_y-prev_y,_a.x-x,_a.y-y,hit_radius+_a.radius)) {
         if(lethal_hit(_a)) exit;
     }

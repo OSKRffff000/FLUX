@@ -9,6 +9,7 @@ function scr_resetear_progreso() {
     // El progreso de Flux reside en el manager referenciado por global.flux.
     if(variable_global_exists("flux") && instance_exists(global.flux)) {
         var _gm=global.flux;
+        if(global.pausa) _gm.end_pause(false);
         _gm.state="menu"; // Detiene recompensas y colisiones antes del reinicio.
         _gm.coins=0;
         _gm.skill_points=0;
@@ -45,6 +46,7 @@ function scr_resetear_progreso() {
     with(obj_punto) instance_destroy();
     with(obj_onda) instance_destroy();
     with(obj_fx) instance_destroy();
+    with(obj_onda_ataque) instance_destroy();
     with(obj_efecto_impacto_bomba) instance_destroy();
     // No llamar a save_progress(): el archivo debe permanecer eliminado.
     return true;

@@ -1,13 +1,13 @@
 {
-  "$GMScript": "v1",
-  "%Name": "scr_resetear_progreso",
-  "isCompatibility": false,
-  "isDnD": false,
-  "name": "scr_resetear_progreso",
-  "parent": {
-    "name": "juegojuegojuego",
-    "path": "juegojuegojuego.yyp"
+  "$GMScript":"v1",
+  "%Name":"scr_resetear_progreso",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_resetear_progreso",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
   },
-  "resourceType": "GMScript",
-  "resourceVersion": "2.0"
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

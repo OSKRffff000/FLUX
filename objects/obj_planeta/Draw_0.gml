@@ -31,11 +31,34 @@ if(_laser_visible) {
     draw_set_alpha(0.65);flux_arc(x,y,_pulse_radius+2,1,3);
 }
 // Base intacta y capa roja tenue, con desvanecimiento durante el destello.
-draw_sprite_ext(sprite_index,image_index,x+planet_offset_x,y+planet_offset_y,
+draw_sprite_ext(sprite_index,image_index,x+planet_offset_x+planet_shake_x,y+planet_offset_y+planet_shake_y,
     planet_scale,planet_scale,0,c_white,1);
 if(hit_timer>0) {
     var _flash_alpha=0.3*clamp(hit_timer/hit_duration,0,1);
-    draw_sprite_ext(sprite_index,image_index,x+planet_offset_x,y+planet_offset_y,
+    draw_sprite_ext(sprite_index,image_index,x+planet_offset_x+planet_shake_x,y+planet_offset_y+planet_shake_y,
         planet_scale,planet_scale,0,c_red,_flash_alpha);
 }
 draw_set_color(_old_colour);draw_set_alpha(_old_alpha);
+
+if(attack_state=="warning") {
+    gpu_set_blendmode(bm_add);
+    var _charge=1-warning_remaining/max(0.001,warning_total);
+    var _pulse=0.35+0.65*abs(sin(attack_clock*20));
+    draw_set_color(pattern==3 ? c_white : image_blend);
+    draw_set_alpha(0.12+_charge*0.25);draw_circle(x,y,radius+20+_charge*60,false);
+    draw_set_alpha(_pulse);flux_arc(x,y,radius+28+12*sin(attack_clock*12),1,5);
+    if(pattern==3) {
+        draw_set_alpha(0.35+0.65*_pulse);draw_circle(x,y,radius,false);
+        // Bordes del sector de escape del próximo tren de anillos.
+        for(var _side=-1;_side<=1;_side+=2) {
+            var _a=nova_gap+_side*18;
+            draw_line_width(x,y,x+lengthdir_x(gm.orbit_radius+60,_a),y+lengthdir_y(gm.orbit_radius+60,_a),3);
+        }
+    } else {
+        for(var _i=0;_i<8;++_i) {
+            var _a=phase+_i*45;
+            draw_set_alpha(0.2*_pulse);draw_line_width(x,y,x+lengthdir_x(gm.orbit_radius,_a),y+lengthdir_y(gm.orbit_radius,_a),2);
+        }
+    }
+    gpu_set_blendmode(bm_normal);draw_set_color(_old_colour);draw_set_alpha(_old_alpha);
+}

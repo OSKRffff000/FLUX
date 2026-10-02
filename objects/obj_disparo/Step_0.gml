@@ -1,10 +1,20 @@
 if(global.flux.state!="playing") exit;
-var _px=x,_py=y;
+var _px=x,_py=y;age+=flux_dt();
+if(trail) {
+    array_push(trail_points,{px:x,py:y});
+    if(array_length(trail_points)>6) array_delete(trail_points,0,1);
+}
 x+=lengthdir_x(velocity*flux_dt(),heading);y+=lengthdir_y(velocity*flux_dt(),heading);
 if(instance_exists(obj_planeta)) {
     var _p=instance_find(obj_planeta,0);
     if(hit_planet!=_p && flux_segment_hit(_px-_p.x,_py-_p.y,x-_p.x,y-_p.y,_p.radius+radius)) {
-        hit_planet=_p;_p.receive_damage(damage);flux_burst(x,y,c_white,3);
+        hit_planet=_p;
+        var _was_alive=_p.hp>0;
+        _p.receive_damage(damage);flux_burst(x,y,c_white,3);
+        if(_was_alive) {
+            var _angle=point_direction(_p.x,_p.y,x,y);
+            flux_hit_feedback(_p.x+lengthdir_x(_p.radius,_angle),_p.y+lengthdir_y(_p.radius,_angle),critical);
+        }
         if(is_bomb) {
             // Primer contacto barrido: evita colocar el efecto dentro del planeta
             // cuando el proyectil avanza varios píxeles durante este frame.

@@ -14,32 +14,78 @@ if(hp<=0) {
     instance_destroy();exit;
 }
 
+
+var _dt=flux_world_dt();attack_clock+=_dt;
+planet_shake_x=0;planet_shake_y=0;
+for(var _i=0;_i<array_length(laser_ids);++_i) {
+    if(instance_exists(laser_ids[_i]) && laser_ids[_i].telegraph<=0) {
+        if(!instance_exists(obj_nave) || !obj_nave.buff_active(FluxBuff.Apagon)) {
+            planet_shake_x=random_range(-4,4);planet_shake_y=random_range(-4,4);
+        }
+        break;
+    }
+}
 if(attack_state!="active") exit;
-var _dt=flux_world_dt();
 fire_timer-=_dt;
 switch(pattern) {
-    case 0: // A: brazos giratorios, proyectiles con una curva ligera.
-        phase=(phase+spin_sign*95*_dt+360) mod 360;
+    case 0:
+        phase=(phase+95*_dt) mod 360;
         if(fire_timer<=0) {
             fire_timer+=spiral_interval;
             for(var _i=0;_i<spiral_arms;++_i) {
-                var _heading=phase+_i*360/spiral_arms;
-                emit_bullet(_heading,projectile_speed,image_blend,spin_sign*9);
+                var _a=_i*360/spiral_arms;
+                emit_bullet(_a+phase,projectile_speed,image_blend,9);
+                emit_bullet(_a-phase+180/spiral_arms,projectile_speed,
+                    make_color_hsv((gm.last_planet_hue+110) mod 256,255,255),-9);
             }
         }
         break;
-    case 1: // B: el objeto láser controla su propio barrido continuo.
-        break;
-    case 2: // C: salvas de tres tiros que interceptan la órbita futura.
+    case 1:break;
+    case 2:
         if(fire_timer<=0 && instance_exists(obj_nave)) {
-            fire_timer+=geyser_interval;
-            var _ship=instance_find(obj_nave,0);
-            var _speed=projectile_speed*1.65;
-            // Trayecto radial hasta la órbita. Nave en tiempo normal, bala en tiempo del nivel.
-            var _flight=(gm.orbit_radius-radius-8)/(_speed*max(0.01,gm.world_scale));
+            fire_timer+=max(0.65,geyser_interval);
+            var _ship=instance_find(obj_nave,0),_speed=projectile_speed*1.65;
+            var _flight=((gm.orbit_radius-radius-8)/_speed+0.55)/max(0.01,gm.world_scale);
             var _future=_ship.orbit_angle+_ship.orbit_direction*gm.stats.angular_speed*_flight;
-            var _colour=make_color_hsv((gm.last_planet_hue+100) mod 256,255,255);
-            for(var _i=-1;_i<=1;++_i) emit_bullet(_future+_i*7,_speed,_colour,0);
+            for(var _i=-1;_i<=1;++_i) {
+                var _angle=_future+_i*7;
+                var _p=emit_bullet(_angle,_speed,make_color_hsv((gm.last_planet_hue+100) mod 256,255,255),0);
+                _p.telegraph=0.55;
+                _p.warning_x=x+lengthdir_x(gm.orbit_radius,_angle);_p.warning_y=y+lengthdir_y(gm.orbit_radius,_angle);
+            }
+        }
+        break;
+    case 3:
+        if(fire_timer<=0 && nova_ring<4) {
+            fire_timer+=0.48;
+            var _colour=make_color_hsv((gm.last_planet_hue+nova_ring*40) mod 256,255,255);
+            // Sector de escape constante y anunciado: el anillo sigue siendo denso y evitable.
+            for(var _i=0;_i<56;++_i) {
+                var _angle=_i*360/56;
+                if(abs(angle_difference(_angle,nova_gap))<18) continue;
+                var _p=instance_create_depth(x+lengthdir_x(radius+10,_angle),y+lengthdir_y(radius+10,_angle),-3,obj_proyectil_supernova);
+                _p.heading=_angle;_p.image_blend=_colour;_p.tint=_colour;
+                _p.burst_speed=min(520,360+gm.stage*9);_p.pulse_phase=nova_ring*pi*0.5;
+            }
+            var _wave=instance_create_depth(x,y,-6,obj_onda_ataque);_wave.tint=_colour;
+            gm.attack_impact(5,_colour,0.15);++nova_ring;
+        }
+        break;
+    case 4:
+        if(fire_timer<=0) {
+            fire_timer+=0.65;
+            for(var _i=0;_i<2;++_i) {
+                var _angle=random(360);
+                if(_i==0 && instance_exists(obj_nave)) _angle=obj_nave.orbit_angle+random_range(-25,25);
+                var _ux=lengthdir_x(1,_angle),_uy=lengthdir_y(1,_angle);
+                var _edge_x=abs(_ux)<0.00001 ? 100000 : ((_ux>0 ? room_width-x : x)/abs(_ux));
+                var _edge_y=abs(_uy)<0.00001 ? 100000 : ((_uy>0 ? room_height-y : y)/abs(_uy));
+                var _distance=min(_edge_x,_edge_y)+100;
+                var _c=instance_create_depth(x+_ux*_distance,y+_uy*_distance,-3,obj_cometa_planeta);
+                _c.owner=id;_c.heading=point_direction(_c.x,_c.y,x,y);
+                _c.warning_x=x+lengthdir_x(gm.orbit_radius,_angle);_c.warning_y=y+lengthdir_y(gm.orbit_radius,_angle);
+                _c.image_blend=make_color_hsv((gm.last_planet_hue+random_range(40,90)) mod 256,255,255);_c.tint=_c.image_blend;
+            }
         }
         break;
 }

@@ -1,3 +1,4 @@
+if(global.pausa) end_pause(false);
 if(bgm_instance!=-1) audio_stop_sound(bgm_instance);
 
 reset_camera();

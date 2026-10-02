@@ -9,7 +9,8 @@ if(instance_exists(obj_nave)) {
         x+=lengthdir_x(_dist,_dir);y+=lengthdir_y(_dist,_dir);
     } else { x+=lengthdir_x(48*_dt,heading);y+=lengthdir_y(48*_dt,heading); }
     if(flux_segment_hit(_px-_s.prev_x,_py-_s.prev_y,x-_s.x,y-_s.y,18)) {
-        _gm.coins+=value;_gm.save_progress();instance_destroy();exit;
+        var _multiplier=(_gm.stats.buff_double_points && _s.any_buff_active()) ? 2 : 1;
+        _gm.coins+=value*_multiplier;_gm.save_progress();instance_destroy();exit;
     }
 }
 if(life<=0) instance_destroy();

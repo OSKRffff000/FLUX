@@ -1,13 +1,13 @@
 {
-  "$GMScript": "v1",
-  "%Name": "flux_core",
-  "isCompatibility": false,
-  "isDnD": false,
-  "name": "flux_core",
-  "parent": {
-    "name": "juegojuegojuego",
-    "path": "juegojuegojuego.yyp"
+  "$GMScript":"v1",
+  "%Name":"flux_core",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"flux_core",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
   },
-  "resourceType": "GMScript",
-  "resourceVersion": "2.0"
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

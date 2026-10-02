@@ -1,0 +1,427 @@
+[
+  [
+    "Potencia",
+    [
+      [
+        "Calibración Básica",
+        "Aumenta el daño base de cada impacto un 10% y el tamaño visual del proyectil un 5%.",
+        {
+          "damage_bonus": 0.1,
+          "size_bonus": 0.05
+        }
+      ],
+      [
+        "Carga Concentrada",
+        "Aumenta el daño un 25% y el tamaño un 10%.",
+        {
+          "damage_bonus": 0.25,
+          "size_bonus": 0.1
+        }
+      ],
+      [
+        "Munición Densa",
+        "Aumenta el daño un 45% y el tamaño un 15%.",
+        {
+          "damage_bonus": 0.45,
+          "size_bonus": 0.15
+        }
+      ],
+      [
+        "Impacto Sísmico",
+        "Aumenta el daño un 70%. Los proyectiles ahora generan una pequeñísima vibración al chocar contra el planeta.",
+        {
+          "damage_bonus": 0.7,
+          "impact_shake": 0.12
+        }
+      ],
+      [
+        "Núcleo Pesado",
+        "Aumenta el daño un 100% (doble de daño inicial) y el tamaño un 30%.",
+        {
+          "damage_bonus": 1,
+          "size_bonus": 0.3
+        }
+      ],
+      [
+        "Ojivas de Tungsteno",
+        "Aumenta el daño un 140% y el tamaño un 40%.",
+        {
+          "damage_bonus": 1.4,
+          "size_bonus": 0.4
+        }
+      ],
+      [
+        "Materia Condensada",
+        "Aumenta el daño un 190% y el tamaño un 55%.",
+        {
+          "damage_bonus": 1.9,
+          "size_bonus": 0.55
+        }
+      ],
+      [
+        "Destrucción Cataclísmica",
+        "Aumenta el daño un 250% y el tamaño un 70%. Los disparos se ven visiblemente más anchos.",
+        {
+          "damage_bonus": 2.5,
+          "size_bonus": 0.7
+        }
+      ],
+      [
+        "Proyectiles de Antimateria",
+        "Aumenta el daño un 320% y el tamaño un 85%.",
+        {
+          "damage_bonus": 3.2,
+          "size_bonus": 0.85
+        }
+      ],
+      [
+        "Aniquilación Absoluta",
+        "Aumenta el daño un 400% y el tamaño un 100%. Los disparos ahora dejan una estela tras de sí debido a su densidad y tamaño.",
+        {
+          "damage_bonus": 4,
+          "size_bonus": 1,
+          "bullet_trail": true
+        }
+      ]
+    ]
+  ],
+  [
+    "Frecuencia",
+    [
+      [
+        "Gatillo Ligero",
+        "Reduce el tiempo entre disparos un 5% y aumenta la velocidad a la que viaja el proyectil un 10%.",
+        {
+          "interval_reduction": 0.05,
+          "speed_bonus": 0.1
+        }
+      ],
+      [
+        "Inyección de Plasma",
+        "Reduce el tiempo de disparo un 12% y aumenta la velocidad del proyectil un 20%.",
+        {
+          "interval_reduction": 0.12,
+          "speed_bonus": 0.2
+        }
+      ],
+      [
+        "Cañón Rotativo",
+        "Reduce el tiempo de disparo un 20% y aumenta la velocidad del proyectil un 35%.",
+        {
+          "interval_reduction": 0.2,
+          "speed_bonus": 0.35
+        }
+      ],
+      [
+        "Acelerador Magnético",
+        "Reduce el tiempo de disparo un 30% y aumenta la velocidad del proyectil un 50%.",
+        {
+          "interval_reduction": 0.3,
+          "speed_bonus": 0.5
+        }
+      ],
+      [
+        "Sobrecarga Térmica",
+        "Reduce el tiempo de disparo un 42% y aumenta la velocidad del proyectil un 70%.",
+        {
+          "interval_reduction": 0.42,
+          "speed_bonus": 0.7
+        }
+      ],
+      [
+        "Flujo Continuo",
+        "Reduce el tiempo de disparo un 55% y aumenta la velocidad del proyectil un 95%.",
+        {
+          "interval_reduction": 0.55,
+          "speed_bonus": 0.95
+        }
+      ],
+      [
+        "Hipervelocidad",
+        "Reduce el tiempo de disparo un 68% y aumenta la velocidad del proyectil un 125%.",
+        {
+          "interval_reduction": 0.68,
+          "speed_bonus": 1.25
+        }
+      ],
+      [
+        "Cadencia Cuántica",
+        "Reduce el tiempo de disparo un 80% y aumenta la velocidad del proyectil un 160%.",
+        {
+          "interval_reduction": 0.8,
+          "speed_bonus": 1.6
+        }
+      ],
+      [
+        "Lluvia de Meteoros",
+        "Reduce el tiempo de disparo un 90% (disparo casi continuo) y aumenta la velocidad del proyectil un 200%.",
+        {
+          "interval_reduction": 0.9,
+          "speed_bonus": 2
+        }
+      ],
+      [
+        "Rayo Cinético",
+        "Reduce el tiempo de disparo un 95% y aumenta la velocidad del proyectil un 250%. El arma dispara tan rápido que parece una línea sólida ininterrumpida.",
+        {
+          "interval_reduction": 0.95,
+          "speed_bonus": 2.5,
+          "kinetic_line": true
+        }
+      ]
+    ]
+  ],
+  [
+    "Maniobrabilidad",
+    [
+      [
+        "Propulsores Ágiles",
+        "Aumenta la velocidad de órbita un 10%.",
+        {
+          "orbit_bonus": 0.1
+        }
+      ],
+      [
+        "Inversores de Empuje",
+        "Aumenta la velocidad de órbita un 18%.",
+        {
+          "orbit_bonus": 0.18
+        }
+      ],
+      [
+        "Aerodinámica de Vacío",
+        "Aumenta la velocidad de órbita un 25% y otorga 0.1 segundos de inmunidad (i-frames) justo al momento de invertir la dirección.",
+        {
+          "orbit_bonus": 0.25,
+          "turn_iframes": 0.1
+        }
+      ],
+      [
+        "Motores de Iones",
+        "Aumenta la velocidad de órbita un 30%. El cambio de dirección ahora deja una ligera estela visual.",
+        {
+          "orbit_bonus": 0.3,
+          "turn_trail": true
+        }
+      ],
+      [
+        "Reflejos Neuronales",
+        "Aumenta la velocidad de órbita un 34% y los frames de inmunidad al girar suben a 0.2 segundos.",
+        {
+          "orbit_bonus": 0.34,
+          "turn_iframes": 0.2
+        }
+      ],
+      [
+        "Gravedad Asistida",
+        "Aumenta la velocidad de órbita un 37%. Permite a la nave frenar un 20% de su velocidad si el jugador no toca nada (ajuste del control estático).",
+        {
+          "orbit_bonus": 0.37,
+          "coast_brake": true
+        }
+      ],
+      [
+        "Derrape Orbital",
+        "Aumenta la velocidad de órbita un 39%. Los frames de inmunidad al girar suben a 0.3 segundos.",
+        {
+          "orbit_bonus": 0.39,
+          "turn_iframes": 0.3
+        }
+      ],
+      [
+        "Impulso Oscuro",
+        "Aumenta la velocidad de órbita un 40%. Cambiar de dirección ahora esquiva limpiamente colisiones directas.",
+        {
+          "orbit_bonus": 0.4,
+          "clean_turn": true
+        }
+      ],
+      [
+        "Danza Estelar",
+        "Aumenta la velocidad de órbita un 41%. Invertir la dirección teletransporta la nave un par de píxeles hacia atrás (Micro-salto) para evitar ataques cerrados.",
+        {
+          "orbit_bonus": 0.41,
+          "micro_jump": 2
+        }
+      ],
+      [
+        "Órbita Espectral",
+        "Aumenta la velocidad al límite máximo manejable (42%). La inmunidad al invertir dirección sube a 0.5 segundos y el micro-salto es más amplio.",
+        {
+          "orbit_bonus": 0.42,
+          "turn_iframes": 0.5,
+          "micro_jump": 8
+        }
+      ]
+    ]
+  ],
+  [
+    "Crítico",
+    [
+      [
+        "Calibración Óptica",
+        "Otorga un 5% de probabilidad de infligir daño crítico (hace el doble de daño).",
+        {
+          "crit": 0.05
+        }
+      ],
+      [
+        "Sensores de Debilidad",
+        "Aumenta la probabilidad de crítico a 12%.",
+        {
+          "crit": 0.12
+        }
+      ],
+      [
+        "Impacto Certero",
+        "Aumenta la probabilidad a 20%. Los golpes críticos ahora hacen un 2.2x del daño base.",
+        {
+          "crit": 0.2,
+          "crit_multiplier": 2.2
+        }
+      ],
+      [
+        "Cálculo Estructural",
+        "Aumenta la probabilidad a 30%. Los proyectiles que salen como críticos parpadean en blanco.",
+        {
+          "crit": 0.3,
+          "crit_blink": true
+        }
+      ],
+      [
+        "Fractura Profunda",
+        "Aumenta la probabilidad a 42%. El daño crítico sube a 2.5x.",
+        {
+          "crit": 0.42,
+          "crit_multiplier": 2.5
+        }
+      ],
+      [
+        "Foco Perforante",
+        "Aumenta la probabilidad a 55%.",
+        {
+          "crit": 0.55
+        }
+      ],
+      [
+        "Ruptura Tectónica",
+        "Aumenta la probabilidad a 70%. El daño crítico sube a 3.0x.",
+        {
+          "crit": 0.7,
+          "crit_multiplier": 3
+        }
+      ],
+      [
+        "Punto Ciego",
+        "Aumenta la probabilidad a 85%. Cada disparo crítico tiene un 10% de probabilidad extra de hacer que el planeta suelte más puntos.",
+        {
+          "crit": 0.85,
+          "crit_drop_chance": 0.1
+        }
+      ],
+      [
+        "Precisión Letal",
+        "Aumenta la probabilidad a 95%. El daño crítico sube a 3.5x.",
+        {
+          "crit": 0.95,
+          "crit_multiplier": 3.5
+        }
+      ],
+      [
+        "Sobrecarga Crítica",
+        "100% de probabilidad de crítico. Todos los ataques hacen el cuádruple (4.0x) de daño base y destellan intensamente al impactar.",
+        {
+          "crit": 1,
+          "crit_multiplier": 4,
+          "crit_flash": true
+        }
+      ]
+    ]
+  ],
+  [
+    "Utilidades",
+    [
+      [
+        "Radar de Suministros",
+        "Aumenta la frecuencia de aparición de potenciadores un 10% y su duración un 15%.",
+        {
+          "spawn_bonus": 0.1,
+          "duration_bonus": 0.15
+        }
+      ],
+      [
+        "Cápsulas Duraderas",
+        "Aumenta la aparición un 20% y la duración un 30%.",
+        {
+          "spawn_bonus": 0.2,
+          "duration_bonus": 0.3
+        }
+      ],
+      [
+        "Atracción Magnética",
+        "Aumenta la aparición un 30%. El área de colisión (hitbox) para recoger los potenciadores se hace ligeramente más grande.",
+        {
+          "spawn_bonus": 0.3,
+          "pickup_area": 1.3
+        }
+      ],
+      [
+        "Baterías Extendidas",
+        "Aumenta la aparición un 45% y la duración de los potenciadores un 60%.",
+        {
+          "spawn_bonus": 0.45,
+          "duration_bonus": 0.6
+        }
+      ],
+      [
+        "Sincronización de Recursos",
+        "Aumenta la aparición un 60%. Al recoger cualquier potenciador, se otorgan puntos adicionales automáticamente.",
+        {
+          "spawn_bonus": 0.6,
+          "pickup_points": 1
+        }
+      ],
+      [
+        "Campos de Contención",
+        "Aumenta la aparición un 80% y la duración un 100% (los potenciadores duran el doble).",
+        {
+          "spawn_bonus": 0.8,
+          "duration_bonus": 1
+        }
+      ],
+      [
+        "Lluvia de Bendiciones",
+        "Aumenta la aparición un 105%. El área de colisión para recoger es ahora el doble de grande.",
+        {
+          "spawn_bonus": 1.05,
+          "pickup_area": 2
+        }
+      ],
+      [
+        "Ciclo Eficiente",
+        "Aumenta la aparición un 135% y la duración un 150%.",
+        {
+          "spawn_bonus": 1.35,
+          "duration_bonus": 1.5
+        }
+      ],
+      [
+        "Anomalía Generosa",
+        "Aumenta la aparición un 170%. Introduce un 5% de probabilidad de que caigan dos potenciadores exactamente al mismo tiempo.",
+        {
+          "spawn_bonus": 1.7,
+          "double_buff_chance": 0.05
+        }
+      ],
+      [
+        "Dominio del Caos",
+        "Aumenta la aparición un 200% y la duración un 250%. Siempre que tengas un potenciador activo, los puntos que caen del planeta valen el doble.",
+        {
+          "spawn_bonus": 2,
+          "duration_bonus": 2.5,
+          "buff_double_points": true
+        }
+      ]
+    ]
+  ]
+]

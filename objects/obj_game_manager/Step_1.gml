@@ -1,3 +1,7 @@
+// Procesar pausa antes de temporizadores, alarmas y Steps de las entidades.
+if(!device_mouse_check_button(0,mb_left)) block_gameplay_touch=false;
+if(instance_exists(obj_boton_pausa)) obj_boton_pausa.handle_input();
+if(global.pausa) exit;
 world_scale=1;
 if(state!="playing") exit;
 with(obj_nave) {

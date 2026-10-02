@@ -11,8 +11,8 @@
   "name":"obj_planeta",
   "overriddenProperties":[],
   "parent":{
-    "name":"juegojuegojuego",
-    "path":"juegojuegojuego.yyp",
+    "name":"Objects",
+    "path":"folders/Objects.yy",
   },
   "parentObjectId":null,
   "persistent":false,

@@ -1,7 +1,9 @@
 if (gm.state!="playing") exit;
 spawn_timer-=flux_world_dt();
 if (spawn_timer<=0) {
-    spawn_timer=random_range(6,9);
+    spawn_timer=random_range(6,9)/gm.stats.buff_spawn_multiplier;
+    var _count=random(1)<gm.stats.double_buff_chance ? 2 : 1;
+    repeat(_count) {
     // La sala completa coincide con la pantalla logica: 720 x 1280.
     // Siempre nacen fuera de uno de sus cuatro bordes, nunca del planeta.
     var _margin=40, _x=0, _y=0;
@@ -14,4 +16,5 @@ if (spawn_timer<=0) {
     var _buff=instance_create_depth(_x,_y,-4,obj_buff);
     _buff.heading=point_direction(_x,_y,gm.center_x,gm.center_y);
     _buff.kind=irandom(FluxBuff.Count-1);
+    }
 }

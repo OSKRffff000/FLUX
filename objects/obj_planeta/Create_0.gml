@@ -16,7 +16,9 @@ emit_bullet=function(_heading,_speed,_colour,_curve) {
     var _p=instance_create_depth(x+lengthdir_x(radius+8,_heading),y+lengthdir_y(radius+8,_heading),-3,obj_proyectil_espiral);
     _p.heading=_heading;_p.velocity=_speed;_p.turn_rate=_curve;
     _p.image_blend=_colour;_p.tint=_colour;
-    flux_burst(_p.x,_p.y,_colour,2);
+    _p.image_blend=make_color_hsv((color_get_hue(_colour)+random_range(-9,9)+256) mod 256,255,255);
+    _p.tint=_p.image_blend;flux_burst(_p.x,_p.y,_p.tint,2);
+    return _p;
 };
 
 // Sprites: se usan los nombres existentes en este proyecto.
@@ -32,4 +34,23 @@ receive_damage=function(_damage) {
     hp=max(0,hp-_damage);
     // No reiniciar continuamente: también parpadea bajo un láser sostenido.
     if(hit_timer<=0) hit_timer=hit_duration;
+};
+
+warning_remaining=0;warning_total=1;attack_clock=0;
+nova_ring=0;nova_gap=0;planet_shake_x=0;planet_shake_y=0;
+launch_laser_star=function() {
+    laser_ids=[];
+    // Ocho radios sincronizados, todos advierten dos segundos antes de dañar.
+    for(var _i=0;_i<8;++_i) {
+        var _laser=instance_create_depth(x,y,20,obj_laser_planeta);
+        _laser.owner=id;_laser.mode="star";_laser.telegraph=2;_laser.life=5;
+        _laser.heading=_i*45;_laser.prev_heading=_laser.heading;
+        _laser.sweep_speed=spin_sign*12;_laser.beam_width=32;_laser.shake_strength=11;
+        _laser.image_blend=make_color_hsv((_i*24+gm.last_planet_hue) mod 256,255,255);
+        _laser.tint=_laser.image_blend;
+        _laser.end_x=x+lengthdir_x(_laser.beam_length,_laser.heading);
+        _laser.end_y=y+lengthdir_y(_laser.beam_length,_laser.heading);
+        _laser.leader=_i==0;
+        array_push(laser_ids,_laser);
+    }
 };
