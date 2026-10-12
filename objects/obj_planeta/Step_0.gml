@@ -1,5 +1,41 @@
 if(gm.state!="playing") exit;
 hit_timer=max(0,hit_timer-flux_dt());
+// Efecto de glitch digital y corrupción de datos (1 segundo exacto usando flux_dt())
+if(glitch_timer>0) {
+    var _dt=flux_dt();
+    glitch_timer=max(0,glitch_timer-_dt);
+    if(glitch_timer<=0) {
+        // Estabilización de golpe al transcurrir 1 segundo exacto
+        glitch_active=false;
+        glitch_flash=false;
+        glitch_offset_x=0;
+        glitch_offset_y=0;
+        glitch_scale_mod=1.0;
+    } else {
+        glitch_step_timer+=_dt;
+        if(glitch_step_timer>=glitch_step_interval) {
+            glitch_step_timer=0;
+            glitch_seed=irandom(10000);
+            
+            // Fragmentación y desgarro horizontal (slices de datamoshing)
+            var _neon_palette=[c_aqua,c_fuchsia,c_lime,c_yellow,c_white,c_black];
+            for(var _s=0;_s<16;++_s) {
+                if(random(1)<0.65) {
+                    glitch_slice_shifts[_s]=choose(-36,-24,-14,14,24,36,-44,48);
+                    glitch_slice_colors[_s]=_neon_palette[irandom(array_length(_neon_palette)-1)];
+                } else {
+                    glitch_slice_shifts[_s]=0;
+                    glitch_slice_colors[_s]=c_white;
+                }
+            }
+            // Aberración y desfasamiento global de canales
+            glitch_offset_x=choose(-6,6,-3,3,0);
+            glitch_offset_y=choose(-3,3,0);
+            glitch_scale_mod=1.0+choose(-0.05,0.05,-0.02,0.02,0);
+            glitch_flash=choose(true,false);
+        }
+    }
+}
 if(hp<=0) {
     gm.skill_points+=1;gm.coins+=20;++gm.stage;gm.save_progress();
     // Puntos adicionales coleccionables: el imán los atrae desde cualquier distancia.

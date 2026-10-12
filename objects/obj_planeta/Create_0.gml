@@ -28,6 +28,19 @@ planet_scale=(radius*2)/max(sprite_get_width(sprite_index),sprite_get_height(spr
 // Compensa incluso spr_planeta6, cuyo origen está en (0,0).
 planet_offset_x=(sprite_get_xoffset(sprite_index)-sprite_get_width(sprite_index)*0.5)*planet_scale;
 planet_offset_y=(sprite_get_yoffset(sprite_index)-sprite_get_height(sprite_index)*0.5)*planet_scale;
+// Glitch digital y corrupción de datos (datamoshing/falla de señal): exactamente 1 segundo
+glitch_duration=1.0;
+glitch_timer=glitch_duration;
+glitch_active=true;
+glitch_seed=irandom(10000);
+glitch_step_timer=0;
+glitch_step_interval=0.045;
+glitch_offset_x=0;
+glitch_offset_y=0;
+glitch_scale_mod=1.0;
+glitch_flash=false;
+glitch_slice_shifts=array_create(16,0);
+glitch_slice_colors=array_create(16,c_white);
 hit_timer=0;hit_duration=0.12;
 receive_damage=function(_damage) {
     if(_damage<=0 || hp<=0) return;

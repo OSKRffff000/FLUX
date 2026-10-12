@@ -3,7 +3,6 @@ draw_set_color(c_white);draw_set_alpha(1);draw_set_halign(fa_left);draw_set_vali
 draw_text(25,145,"FLUX | Planeta " + string(_gm.stage) + " | Creditos " + string(_gm.coins));
 draw_text(25,175,"Puntos de mejora: " + string(_gm.skill_points));
 draw_text(25,1190,"Manten izquierda/derecha para orbitar. Suelta para parar.");
-if(_gm.planet_delay>=0) draw_text(250,610,"Siguiente planeta...");
 if(!instance_exists(obj_nave)) exit;
 var _s=instance_find(obj_nave,0),_slot=0;
 for(var _i=0;_i<FluxBuff.Count;++_i) {
