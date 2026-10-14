@@ -5,10 +5,11 @@ Abre `juegojuegojuego.yyp` y ejecuta `Room1` en GameMaker. La sala y GUI usan 72
 ## Archivos principales
 
 - `objects/obj_hud/Draw_64.gml`: iconos monocromáticos y arcos de 360 a 0 grados según `remaining / duration`.
-- `objects/obj_menu_arbol/Create_0.gml`: genera 30 nodos con trigonometría, cinco ramas separadas por 72 grados y seis niveles cada una.
-- `objects/obj_menu_arbol/Step_0.gml`: cámara virtual en coordenadas GUI; arrastre, pellizco, rueda y botones +/−. La transformación inversa permite seleccionar nodos después del pan/zoom. Un arrastre no compra.
-- `objects/obj_menu_arbol/Draw_64.gml`: pentágono, conexiones, requisitos, costos y acceso a evolución pospuesta.
-- `objects/obj_game_manager/Create_0.gml`: catálogo, ramas, estadísticas, `evaluate_evolution`, compras y persistencia.
+- `objects/obj_arbol_mejoras/Create_0.gml`: genera 50 nodos en una retícula hexagonal y asigna su sprite por rama y nivel. `obj_menu_arbol` hereda de este objeto.
+- `objects/obj_arbol_mejoras/Step_0.gml`: cámara virtual en coordenadas GUI; arrastre, pellizco, rueda y botones +/−. La transformación inversa permite seleccionar nodos después del pan/zoom. Un arrastre no compra.
+- `objects/obj_arbol_mejoras/Draw_64.gml`: hexágonos, iconos, selección, información de la mejora, costos y acceso a evolución pospuesta.
+- `scripts/flux_upgrades/flux_upgrades.gml`: catálogo de las cinco ramas con diez mejoras cada una y geometría hexagonal.
+- `objects/obj_game_manager/Create_0.gml`: estadísticas, `evaluate_evolution`, compras y persistencia.
 - `objects/obj_game_manager/Step_0.gml` y `Draw_64.gml`: menú de Aceptar/Posponer con vista previa de la nueva forma.
 - `objects/obj_game_manager/Step_1.gml`: Begin Step actualiza buffs y escala temporal; temporizador de transición planetaria.
 - `objects/obj_planeta/Step_0.gml` y `Draw_0.gml`: daño, anillo de salud, destrucción y ataques.
@@ -34,7 +35,25 @@ Los láseres planetarios tienen un segundo de anticipación. Los puntos salen al
 
 ## Árbol y evolución
 
-Los niveles cuestan 1–6 puntos y requieren el nivel anterior de su rama. Los bonos son acumulativos y aumentan con la profundidad. Crítico suma puntos porcentuales. A partir de **15 puntos gastados** se ofrece la forma correspondiente a la rama con mayor inversión. Empates: orden de la tabla. No hay evolución automática.
+Cada una de las cinco ramas tiene diez niveles, que cuestan 1–10 puntos y requieren el nivel anterior de su rama. Los valores de cada nivel se aplican sobre la base; los efectos secundarios anteriores se conservan según el catálogo. A partir de **15 puntos gastados** se ofrece la forma correspondiente a la rama con mayor inversión. Empates: orden de la tabla. No hay evolución automática.
+
+### Sprites de los nodos
+
+Los 50 recursos están agrupados en `Sprites/Mejoras` en el explorador de GameMaker. En disco, cada recurso tiene su carpeta dentro de `sprites`. `node_sprites` en el Create de `obj_arbol_mejoras` los asigna explícitamente por categoría y nivel; el sufijo 1 corresponde al primer nodo y el 10 al último:
+
+| Rama del catálogo | Carpeta en GameMaker | Sprites (niveles 1–10) |
+|---|---|---|
+| Potencia | `Mejoras_Potencia` | `spr_potencia_1` … `spr_potencia_10` |
+| Frecuencia | `Mejoras_Frecuencia` | `spr_frecuencia_1` … `spr_frecuencia_10` |
+| Maniobrabilidad | `Mejoras_Maniobrabilidad` | `spr_maniobrabilidad_1` … `spr_maniobrabilidad_10` |
+| Crítico | `Mejoras_Critico` | `spr_critico_1` … `spr_critico_10` |
+| Utilidades | `Mejoras_Durabilidad` | `spr_durabilidad_1` … `spr_durabilidad_10` |
+
+Los lienzos miden 64 × 64, 99 × 100, 100 × 100 o 101 × 100. Draw GUI compensa sus orígenes y conserva la proporción dentro de una caja de `hex_radius * 1.1` (57.2 píxeles antes del zoom), desplazada ligeramente hacia arriba para dejar el nivel y la marca `OK` debajo. El icono completo queda dentro del hexágono pulsable de radio 52. Se mantienen los colores de selección/compra, los nodos bloqueados ocultos y el primer toque para consultar/segundo toque para comprar.
+
+Esta integración solo añade datos visuales a los nodos de la UI: no cambia el catálogo, los efectos, los costos, los requisitos, el guardado ni el evento Step. Validada con compilación Windows VM en GameMaker/Igor 2026.0.0.23, las pruebas existentes y una ejecución aislada de los eventos reales con 150 casos de dibujo y 750 posiciones de clic a distintos niveles de zoom y desplazamiento. Falta la revisión visual interactiva dentro de GameMaker.
+
+### Evolución de la nave
 
 | Rama dominante | Evolución aceptada |
 |---|---|

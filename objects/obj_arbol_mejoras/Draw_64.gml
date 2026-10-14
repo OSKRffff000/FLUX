@@ -6,7 +6,6 @@ var _cx=360-cam_x*zoom,_cy=480-cam_y*zoom;
 draw_set_color(c_dkgray);flux_hex(_cx,_cy,hex_radius*zoom,true);
 draw_set_color(c_white);flux_hex(_cx,_cy,hex_radius*zoom,false);
 draw_set_halign(fa_center);draw_set_valign(fa_middle);draw_text_transformed(_cx,_cy,"FLUX",0.5,0.5,0);
-var _initials=["P","F","M","C","U"];
 for(var _i=0;_i<array_length(nodes);++_i) {
     var _n=nodes[_i],_node=gm.branches[_n.branch].nodes[_n.level];
     if(_node.state=="bloqueado") continue;
@@ -14,8 +13,15 @@ for(var _i=0;_i<array_length(nodes);++_i) {
     draw_set_color(_i==nodo_seleccionado ? c_white : (_node.purchased ? c_gray : c_black));
     flux_hex(_xx,_yy,hex_radius*zoom,true);
     draw_set_color(_i==nodo_seleccionado ? c_black : c_white);flux_hex(_xx,_yy,hex_radius*zoom,false);
-    var _label=_initials[_n.branch]+string(_n.level+1)+(_node.purchased ? " OK" : "");
-    draw_text_transformed(_xx,_yy,_label,0.5*zoom,0.5*zoom,0);
+    // Misma posicion y zoom que el hexagono interactivo; respeta la proporcion.
+    var _sprite=_n.icon_sprite;
+    var _width=sprite_get_width(_sprite),_height=sprite_get_height(_sprite);
+    var _scale=node_icon_size*zoom/max(_width,_height);
+    var _sx=_xx+(sprite_get_xoffset(_sprite)-_width*0.5)*_scale;
+    var _sy=_yy+node_icon_offset_y*zoom+(sprite_get_yoffset(_sprite)-_height*0.5)*_scale;
+    draw_sprite_ext(_sprite,0,_sx,_sy,_scale,_scale,0,draw_get_color(),1);
+    var _label=string(_n.level+1)+(_node.purchased ? " OK" : "");
+    draw_text_transformed(_xx,_yy+hex_radius*0.65*zoom,_label,0.4*zoom,0.4*zoom,0);
 }
 // Paneles fijos: nunca interceptan ni se confunden con los gestos del panal.
 draw_set_color(c_black);draw_rectangle(0,0,720,175,false);draw_rectangle(0,790,720,1280,false);

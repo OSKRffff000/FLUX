@@ -116,6 +116,13 @@ assert(ctx.flux_hex_contains(0,0,52));
 assert(!ctx.flux_hex_contains(51,44,52));
 assert(!ctx.flux_hex_contains(0,46,52));
 const honey=fs.readFileSync('objects/obj_arbol_mejoras/Create_0.gml','utf8');
+// El motor resuelve estos IDs de recursos; el entorno aislado usa sus nombres.
+for(const category of ['potencia','frecuencia','maniobrabilidad','critico','durabilidad']) {
+  for(let level=1;level<=10;level++) {
+    const sprite='spr_'+category+'_'+level;
+    ctx[sprite]=sprite;
+  }
+}
 vm.runInContext(honey.replace(/\bmod\b/g,'%'),ctx);
 assert.equal(ctx.nodes.length,50);
 assert.equal(new Set(ctx.nodes.map(n=>n.wx.toFixed(5)+','+n.wy.toFixed(5))).size,50);
