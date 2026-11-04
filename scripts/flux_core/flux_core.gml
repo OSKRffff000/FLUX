@@ -146,3 +146,89 @@ function flux_play_sfx(_sound,_priority) {
     array_push(global.flux.sfx_voices,_voice);
     return _voice;
 }
+
+
+function flux_draw_resource_bar(_x_bot_left, _y_top, _height, _slant, _icon_sprite, _amount, _is_credits = false) {
+    var _x_top_left = _x_bot_left + _slant;
+    var _x_right = display_get_gui_width();
+    var _y_bot = _y_top + _height;
+    var _y_mid = _y_top + _height * 0.5;
+    
+    var _ha = draw_get_halign(), _va = draw_get_valign(), _c = draw_get_color(), _a = draw_get_alpha(), _f = draw_get_font();
+    
+    // Fondo de la barra con relleno oscuro
+    draw_set_color(c_black);
+    draw_set_alpha(0.88);
+    draw_triangle(_x_top_left, _y_top, _x_right, _y_top, _x_bot_left, _y_bot, false);
+    draw_triangle(_x_right, _y_top, _x_right, _y_bot, _x_bot_left, _y_bot, false);
+    
+    // Contorno vectorial blanco
+    draw_set_color(c_white);
+    draw_set_alpha(1);
+    draw_line_width(_x_top_left, _y_top, _x_right, _y_top, 2);
+    draw_line_width(_x_top_left, _y_top, _x_bot_left, _y_bot, 2);
+    draw_line_width(_x_bot_left, _y_bot, _x_right, _y_bot, 2);
+    
+    // Icono a la izquierda de la barra
+    var _icon_cx = _x_bot_left - 30;
+    var _icon_cy = _y_mid;
+    
+    if (_icon_sprite != -1 && sprite_exists(_icon_sprite)) {
+        var _sw = sprite_get_width(_icon_sprite);
+        var _sh = sprite_get_height(_icon_sprite);
+        var _target_h = 36;
+        var _scale = _target_h / max(1, _sh);
+        var _ox = sprite_get_xoffset(_icon_sprite);
+        var _oy = sprite_get_yoffset(_icon_sprite);
+        draw_sprite_ext(_icon_sprite, 0, _icon_cx - (_sw * 0.5 - _ox) * _scale, _icon_cy - (_sh * 0.5 - _oy) * _scale, _scale, _scale, 0, c_white, 1);
+    } else {
+        if (_is_credits) {
+            // Icono propio / fallback de creditos (moneda con C, NUNCA una flecha)
+            draw_set_color(c_white);
+            draw_circle(_icon_cx, _icon_cy, 16, true);
+            draw_circle(_icon_cx, _icon_cy, 13, true);
+            draw_set_halign(fa_center);
+            draw_set_valign(fa_middle);
+            draw_set_font(fnt_gridlite);
+            draw_text_transformed(_icon_cx, _icon_cy, "C", 0.7, 0.7, 0);
+        } else {
+            // Icono / fallback de mejora (flecha hacia arriba)
+            draw_set_color(c_white);
+            draw_line_width(_icon_cx, _icon_cy - 16, _icon_cx - 12, _icon_cy + 2, 2);
+            draw_line_width(_icon_cx, _icon_cy - 16, _icon_cx + 12, _icon_cy + 2, 2);
+            draw_line_width(_icon_cx, _icon_cy - 16, _icon_cx, _icon_cy + 14, 2);
+        }
+    }
+    
+    // Cantidad numerica en el interior de la barra
+    draw_set_font(fnt_gridlite);
+    draw_set_color(c_white);
+    draw_set_alpha(1);
+    draw_set_halign(fa_center);
+    draw_set_valign(fa_middle);
+    var _text_cx = round((_x_top_left + _x_right) * 0.5 - 6);
+    draw_text(_text_cx, _y_mid, string(_amount));
+    
+    // Restaurar estado de dibujo
+    draw_set_halign(_ha);
+    draw_set_valign(_va);
+    draw_set_color(_c);
+    draw_set_alpha(_a);
+    draw_set_font(_f);
+}
+
+function flux_draw_bar_creditos(_y_pos = 195, _x_bot_left = 500) {
+    if (!variable_global_exists("flux") || !instance_exists(global.flux)) exit;
+    var _gm = global.flux;
+    var _spr = Sprite74;
+    if (!sprite_exists(_spr)) _spr = asset_get_index("Sprite74");
+    flux_draw_resource_bar(_x_bot_left, _y_pos, 42, 28, _spr, _gm.coins, true);
+}
+
+function flux_draw_bar_puntos(_y_pos = 252, _x_bot_left = 570) {
+    if (!variable_global_exists("flux") || !instance_exists(global.flux)) exit;
+    var _gm = global.flux;
+    var _spr = spr_flecha_mejora;
+    if (!sprite_exists(_spr)) _spr = asset_get_index("spr_flecha_mejora");
+    flux_draw_resource_bar(_x_bot_left, _y_pos, 42, 28, _spr, _gm.skill_points, false);
+}

@@ -1,8 +1,12 @@
 var _gm=global.flux;if(_gm.state!="playing") exit;
 draw_set_color(c_white);draw_set_alpha(1);draw_set_halign(fa_left);draw_set_valign(fa_top);
-draw_text(25,145,"FLUX | Planeta " + string(_gm.stage) + " | Creditos " + string(_gm.coins));
-draw_text(25,175,"Puntos de mejora: " + string(_gm.skill_points));
+draw_text(25,145,"FLUX | Planeta " + string(_gm.stage));
 draw_text(25,1190,"Manten izquierda/derecha para orbitar. Suelta para parar.");
+
+// Barras de recursos en gameplay (esquina superior derecha, debajo del boton de pausa)
+flux_draw_bar_creditos(195);
+flux_draw_bar_puntos(252);
+
 if(!instance_exists(obj_nave)) exit;
 var _s=instance_find(obj_nave,0),_slot=0;
 for(var _i=0;_i<FluxBuff.Count;++_i) {

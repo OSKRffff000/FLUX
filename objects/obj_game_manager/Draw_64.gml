@@ -22,10 +22,22 @@ switch (state) {
         break;
     case "shop":
         draw_text(30,170,"Tienda de Mascotas | Una mascota equipada a la vez");
+        // Barra de creditos en la esquina superior derecha (alta, sin pause que la tape)
+        flux_draw_bar_creditos(30);
         for (var _p=0; _p<array_length(pets); ++_p) {
             var _yy=280+_p*220, _pet=pets[_p];
             draw_set_color(c_white);
-            draw_circle(65,_yy+35,25,true); draw_circle(57,_yy+31,3,false); draw_circle(73,_yy+31,3,false);
+            var _spr = variable_struct_exists(_pet, "sprite") ? _pet.sprite : asset_get_index("Mascota" + _pet.name);
+            if (_spr != -1 && sprite_exists(_spr)) {
+                var _sw = sprite_get_width(_spr);
+                var _sh = sprite_get_height(_spr);
+                var _ox = sprite_get_xoffset(_spr);
+                var _oy = sprite_get_yoffset(_spr);
+                var _scale = min(64 / max(1, _sw), 64 / max(1, _sh));
+                draw_sprite_ext(_spr, 0, 65 - (_sw * 0.5 - _ox) * _scale, _yy + 35 - (_sh * 0.5 - _oy) * _scale, _scale, _scale, 0, c_white, 1);
+            } else {
+                draw_circle(65,_yy+35,25,true); draw_circle(57,_yy+31,3,false); draw_circle(73,_yy+31,3,false);
+            }
             draw_text(110,_yy,_pet.name + " | " + string(_pet.price) + " creditos");
             draw_text_ext(30,_yy+110,_pet.description + (evolution==2 ? " Nodriza: bono duplicado." : ""),24,660);
             flux_button(460,_yy+20,230,65,equipped_pet==_p ? "Equipada" : (_pet.owned ? "Equipar" : "Comprar"),true);

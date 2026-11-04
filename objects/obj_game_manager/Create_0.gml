@@ -15,12 +15,13 @@ evolution_names=["Arsenal Pesado","Nucleo Energetico","Nave Nodriza","Bombardero
 evolution_descriptions=["Tres balas simultaneas hacia el planeta.","Laser continuo dirigido al centro.","Duplica las bonificaciones de la mascota equipada.","Misiles: explosion de radio 160 que destruye lasers.","Recoger buffs crea una onda que limpia proyectiles."];
 buff_names=["Frenesi de Fuego","Municion Perforante","Bombardeo Aleatorio","Escudo de Energia","Apagon Defensivo","Fase Fantasma","Distorsion Temporal","Super Iman"];
 notice = "";
+cheat_history = []; cheat_last_ks = "";
 branches=flux_upgrade_catalog();
 upgrades_bought=0;
 pets = [
-    {name:"Eco", price:60, description:"Aumenta el dano de cada disparo un 15%.", stat:"damage", bonus:0.15, owned:false},
-    {name:"Pulso", price:90, description:"Aumenta la frecuencia de disparo un 20%.", stat:"rate", bonus:0.20, owned:false},
-    {name:"Luna", price:75, description:"Prolonga los potenciadores temporales un 30%.", stat:"duration", bonus:0.30, owned:false}
+    {name:"Eco", price:300, description:"Aumenta el dano de cada disparo un 15%.", stat:"damage", bonus:0.15, owned:false, sprite:MascotaEco},
+    {name:"Pulso", price:600, description:"Aumenta la frecuencia de disparo un 20%.", stat:"rate", bonus:0.20, owned:false, sprite:MascotaPulso},
+    {name:"Luna", price:450, description:"Prolonga los potenciadores temporales un 30%.", stat:"duration", bonus:0.30, owned:false, sprite:MascotaLuna}
 ];
 save_progress = function() {
     ini_open("flux_save.ini");
@@ -127,6 +128,7 @@ start_run = function() {
     with (obj_onda) instance_destroy();
     planet_delay=-1; world_scale=1;
     rebuild_stats(); stage = 1; state = "playing"; notice = "";
+cheat_history = []; cheat_last_ks = "";
     instance_create_depth(center_x, center_y, 10, obj_planeta);
     instance_create_depth(center_x + orbit_radius, center_y, -10, obj_nave);
     instance_create_depth(0, 0, 0, obj_spawner_buffs);

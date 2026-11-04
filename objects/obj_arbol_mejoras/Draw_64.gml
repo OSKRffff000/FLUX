@@ -27,9 +27,13 @@ for(var _i=0;_i<array_length(nodes);++_i) {
 draw_set_color(c_black);draw_rectangle(0,0,720,175,false);draw_rectangle(0,790,720,1280,false);
 draw_set_color(c_white);draw_set_halign(fa_left);draw_set_valign(fa_top);
 draw_text_transformed(25,25,"Árbol de Mejoras",0.8,0.8,0);
-draw_text_transformed(25,70,"Puntos: "+string(gm.skill_points)+" | Compradas: "+string(gm.upgrades_bought)+"/50",0.55,0.55,0);
+draw_text_transformed(25,70,"Compradas: "+string(gm.upgrades_bought)+"/50",0.55,0.55,0);
 draw_text_transformed(25,105,"Primer toque: información. Segundo toque: comprar.",0.42,0.42,0);
 draw_text_transformed(25,135,"Arrastra / pellizca para explorar. Evolución: 15 puntos gastados.",0.4,0.4,0);
+
+// Barra de puntos de mejora en la esquina superior derecha (alta, sin pause que la tape)
+flux_draw_bar_puntos(30);
+
 if(nodo_seleccionado>=0) {
     var _pos=nodes[nodo_seleccionado],_node=gm.branches[_pos.branch].nodes[_pos.level];
     var _name_scale=min(0.75,660/max(1,string_width(_node.name)));

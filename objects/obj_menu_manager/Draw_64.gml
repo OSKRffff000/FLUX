@@ -54,5 +54,12 @@ if(phase=="panel" || phase=="commit") {
     draw_vertex(_panel_x+180,1360);
     draw_primitive_end();
 }
+if(gm.notice!="" && phase=="idle") {
+    draw_set_color(c_white);
+    draw_set_font(fnt_gridlite);
+    draw_set_halign(fa_center);
+    draw_set_valign(fa_middle);
+    draw_text(360,1220,gm.notice);
+}
 matrix_set(matrix_world,_matrix);draw_set_font(_font);draw_set_color(_colour);
 draw_set_alpha(_alpha);draw_set_halign(_ha);draw_set_valign(_va);
