@@ -4,30 +4,43 @@ if(!was_menu) {
     was_menu=true;phase="idle";phase_time=0;selected=-1;
     planet_x=-200;planet_y=640;planet_radius=450;panel_progress=0;input_ready=false;
     planet_darkness=0;blackout_drawn=false;
+    clicked_index=-1;click_time=999;
     sprite_index=choose(spr_planeta9,spr_planeta10,spr_planeta11);image_index=0;
+    for(var _i=0;_i<array_length(buttons);++_i) buttons[_i].anim=0;
 }
 if(phase=="idle") {
+    click_time+=_dt;
     if(!device_mouse_check_button(0,mb_left)) input_ready=true;
     var _mx=device_mouse_x_to_gui(0)*720/display_get_gui_width();
     var _my=device_mouse_y_to_gui(0)*1280/display_get_gui_height();
     selected=-1;
     for(var _i=0;_i<array_length(buttons);++_i) {
-        // Área estable: unión de las capas en ambos estados para evitar parpadeos del hover.
-        for(var _layer=0;_layer<3;++_layer) {
-            if(button_contains(button_vertices(buttons[_i],false,_layer),_mx,_my)
-                || button_contains(button_vertices(buttons[_i],true,_layer),_mx,_my)) {
-                selected=_i;break;
-            }
+        if(button_contains(buttons[_i],_mx,_my)) {
+            selected=_i;break;
         }
-        if(selected>=0) break;
+    }
+    for(var _i=0;_i<array_length(buttons);++_i) {
+        var _target=(_i==selected) ? 1.0 : 0.0;
+        buttons[_i].anim=lerp(buttons[_i].anim,_target,clamp(_dt*16,0,1));
     }
     if(input_ready && selected>=0 && device_mouse_check_button_pressed(0,mb_left)) {
+        clicked_index=selected;
+        click_time=0;
         phase="anticipation";phase_time=0;gm.state="menu_transition";
-        flux_play_sfx(snd_menu_seleccion,10);
+        if(buttons[selected].action=="playing") {
+            audio_stop_sound(snd_menu);
+            if(gm.bgm_instance!=-1) {
+                audio_stop_sound(gm.bgm_instance);
+                gm.bgm_instance=-1;
+            }
+            gm.bgm_asset=-1;
+        }
+        flux_play_sfx(snd_menu_seleccion2,10);
     }
     exit;
 }
 phase_time+=_dt;
+click_time+=_dt;
 if(phase=="anticipation") {
     var _t=clamp(phase_time/0.22,0,1);
     planet_x=lerp(-200,-270,_t*_t);

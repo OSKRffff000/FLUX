@@ -193,7 +193,7 @@ attack_shake=0;attack_flash=0;attack_flash_tint=c_white;
 // BGM: sólo se detiene la instancia de música, no los efectos de interfaz.
 bgm_instance=-1;bgm_asset=-1;
 sync_music=function() {
-    if(global.pausa) return;
+    if(global.pausa || state=="menu_transition") return;
     if(state!="playing") reset_camera();
     var _desired=state=="credits" ? snd_creditos : (state=="playing" ? snd_playing : snd_menu);
     if(bgm_asset==_desired && (state=="credits" || audio_is_playing(bgm_instance))) return;
