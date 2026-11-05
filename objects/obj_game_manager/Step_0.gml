@@ -70,8 +70,10 @@ switch (state) {
         }
         break;
     case "shop":
-        for (var _p=0; _p<array_length(pets); ++_p)
-            if (flux_click_inside(460,300+_p*220,230,65)) buy_pet(_p);
+        for (var _p=0; _p<array_length(pets); ++_p) {
+            var _card_y = 175 + _p * 290;
+            if (flux_click_inside(440, _card_y + 175, 225, 65) || flux_click_inside(30, _card_y, 660, 265)) buy_pet(_p);
+        }
         if (flux_click_inside(160,1090,400,70)) { state="menu"; notice=""; }
         break;
 }
