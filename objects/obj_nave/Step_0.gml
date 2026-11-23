@@ -1,4 +1,4 @@
-if(gm.state!="playing") exit;
+if(gm.state!="playing" || gm.tutorial_rewind_active) exit;
 var _dt=flux_dt(); prev_x=x;prev_y=y;
 var _touch=device_mouse_check_button(0,mb_left) && !gm.block_gameplay_touch;
 var _left=keyboard_check(vk_left) || (_touch && device_mouse_x(0)<room_width/2);

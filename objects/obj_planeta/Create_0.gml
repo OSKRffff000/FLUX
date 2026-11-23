@@ -43,7 +43,7 @@ glitch_slice_shifts=array_create(16,0);
 glitch_slice_colors=array_create(16,c_white);
 hit_timer=0;hit_duration=0.12;
 receive_damage=function(_damage) {
-    if(_damage<=0 || hp<=0) return;
+    if(_damage<=0 || hp<=0 || gm.tutorial_active) return;
     hp=max(0,hp-_damage);
     // No reiniciar continuamente: también parpadea bajo un láser sostenido.
     if(hit_timer<=0) hit_timer=hit_duration;

@@ -61,7 +61,7 @@ for(var _i=0;_i<array_length(laser_ids);++_i) {
         break;
     }
 }
-if(attack_state!="active") exit;
+if(attack_state!="active" || gm.tutorial_active) exit;
 fire_timer-=_dt;
 switch(pattern) {
     case 0:

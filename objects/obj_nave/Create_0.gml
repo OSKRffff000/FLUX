@@ -29,6 +29,11 @@ lethal_hit=function(_source) {
         if(instance_exists(_source)) with(_source) instance_destroy();
         flux_burst(x,y,c_white,24);return false;
     }
+    if(gm.tutorial_active) {
+        if(gm.tutorial_rewind_active) return false;
+        gm.tutorial_trigger_rewind();
+        return true;
+    }
     if(!instance_exists(obj_secuencia_muerte)) instance_create_depth(0,0,-1000,obj_secuencia_muerte);
     return true;
 };

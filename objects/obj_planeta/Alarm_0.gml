@@ -1,5 +1,5 @@
 alarm[0]=1;
-if(gm.state!="playing" || hp<=0) exit;
+if(gm.state!="playing" || hp<=0 || gm.tutorial_active) exit;
 var _dt=flux_world_dt();
 if(attack_state=="cooldown") {
     cooldown-=_dt;if(cooldown>0) exit;

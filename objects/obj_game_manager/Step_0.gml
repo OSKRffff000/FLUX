@@ -51,6 +51,10 @@ if (state == "menu") {
     cheat_last_ks = keyboard_string;
 }
 
+if (state == "playing" && tutorial_active) {
+    tutorial_update(delta_time / 1000000);
+}
+
 if (!device_mouse_check_button_pressed(0, mb_left)) exit;
 switch (state) {
     case "menu":

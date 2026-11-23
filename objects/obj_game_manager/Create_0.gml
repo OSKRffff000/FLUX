@@ -1,4 +1,17 @@
 global.flux = id;
+if (!variable_global_exists("tutorial_completado")) global.tutorial_completado = false;
+tutorial_active = false;
+tutorial_state = "none";
+tutorial_timer = 0;
+tutorial_shots_fired = 0;
+tutorial_shot_cooldown = 0;
+tutorial_rewind_active = false;
+tutorial_rewind_timer = 0;
+tutorial_rewind_duration = 1.35;
+tutorial_rewind_x = 0;
+tutorial_rewind_y = 0;
+tutorial_rewind_angle = 0;
+tutorial_fragments = [];
 global.pausa=false;block_gameplay_touch=false;
 global.vol_maestro=1;global.vol_musica=1;global.vol_sfx=1;
 sfx_voices=[];
@@ -34,6 +47,7 @@ save_progress = function() {
     ini_write_real("player", "pet", equipped_pet);
     ini_write_real("player","evolution",evolution);
     ini_write_real("player","deferred",evolution_deferred);
+    ini_write_real("player","tutorial_completed",global.tutorial_completado ? 1 : 0);
     for (var _b = 0; _b < 5; ++_b)
         for (var _n = 0; _n < array_length(branches[_b].nodes); ++_n)
             ini_write_real("tree", string(_b)+"_"+string(_n), branches[_b].nodes[_n].purchased);
@@ -132,6 +146,166 @@ cheat_history = []; cheat_last_ks = "";
     instance_create_depth(center_x, center_y, 10, obj_planeta);
     instance_create_depth(center_x + orbit_radius, center_y, -10, obj_nave);
     instance_create_depth(0, 0, 0, obj_spawner_buffs);
+    if (!global.tutorial_completado) {
+        tutorial_active = true;
+        tutorial_state = "phase1_prompt";
+        tutorial_timer = 0;
+        tutorial_shots_fired = 0;
+        tutorial_shot_cooldown = 0.5;
+        tutorial_rewind_active = false;
+        tutorial_rewind_timer = 0;
+        tutorial_fragments = [];
+    } else {
+        tutorial_active = false;
+        tutorial_state = "none";
+        tutorial_rewind_active = false;
+    }
+};
+tutorial_trigger_rewind = function() {
+    if (!tutorial_active || tutorial_rewind_active) return;
+    tutorial_rewind_active = true;
+    tutorial_rewind_timer = 0;
+    tutorial_rewind_duration = 1.30;
+    
+    if (instance_exists(obj_nave)) {
+        tutorial_rewind_x = obj_nave.x;
+        tutorial_rewind_y = obj_nave.y;
+        tutorial_rewind_angle = obj_nave.orbit_angle;
+        obj_nave.visible = false;
+        obj_nave.turn_clean = true;
+        obj_nave.turn_immunity = 999;
+    }
+    
+    with(obj_ataque_planeta) instance_destroy();
+    with(obj_laser_planeta) instance_destroy();
+    
+    flux_play_sfx(snd_muerte_explosion, 10);
+    
+    with(obj_fragmento_nave) if (rewind_mode) instance_destroy();
+    repeat(22) {
+        var _frag = instance_create_depth(tutorial_rewind_x, tutorial_rewind_y, -45, obj_fragmento_nave);
+        _frag.rewind_mode = true;
+        _frag.rewind_state = "fall";
+        _frag.rewind_timer = 0;
+        _frag.rewind_target_x = tutorial_rewind_x;
+        _frag.rewind_target_y = tutorial_rewind_y;
+        _frag.life = 10;
+    }
+    
+    tutorial_shots_fired = 0;
+    tutorial_shot_cooldown = 0.8;
+};
+
+tutorial_update = function(_dt) {
+    if (!tutorial_active) return;
+    
+    if (tutorial_rewind_active) {
+        tutorial_rewind_timer += _dt;
+        if (tutorial_rewind_timer >= 0.65 && tutorial_rewind_timer - _dt < 0.65) {
+            flux_play_sfx(snd_carga_laser, 8);
+        }
+        if (tutorial_rewind_timer >= tutorial_rewind_duration) {
+            tutorial_rewind_active = false;
+            with(obj_fragmento_nave) if (rewind_mode) instance_destroy();
+            if (instance_exists(obj_nave)) {
+                obj_nave.visible = true;
+                obj_nave.orbit_angle = tutorial_rewind_angle;
+                obj_nave.x = center_x + lengthdir_x(orbit_radius, obj_nave.orbit_angle);
+                obj_nave.y = center_y + lengthdir_y(orbit_radius, obj_nave.orbit_angle);
+                obj_nave.prev_x = obj_nave.x;
+                obj_nave.prev_y = obj_nave.y;
+                obj_nave.turn_immunity = 1.8;
+                obj_nave.turn_clean = false;
+                flux_burst(obj_nave.x, obj_nave.y, c_white, 16);
+            }
+        }
+        return;
+    }
+    
+    if (!instance_exists(obj_nave) || !instance_exists(obj_planeta)) return;
+    
+    var _touch = device_mouse_check_button(0, mb_left) && !block_gameplay_touch;
+    var _left = keyboard_check(vk_left) || (_touch && device_mouse_x(0) < room_width/2);
+    var _right = keyboard_check(vk_right) || (_touch && device_mouse_x(0) >= room_width/2);
+    var _planet = instance_find(obj_planeta, 0);
+    var _ship = instance_find(obj_nave, 0);
+    
+    switch (tutorial_state) {
+        case "phase1_prompt":
+            if (_left) {
+                tutorial_state = "phase1_dodge";
+                tutorial_shots_fired = 0;
+                tutorial_shot_cooldown = 0.4;
+                flux_play_sfx(snd_menu_seleccion, 9);
+            }
+            break;
+            
+        case "phase1_dodge":
+            tutorial_shot_cooldown -= _dt;
+            if (tutorial_shot_cooldown <= 0 && tutorial_shots_fired < 6) {
+                tutorial_shot_cooldown = 0.55;
+                tutorial_shots_fired++;
+                var _aim_angle = _ship.orbit_angle + 6;
+                _planet.emit_bullet(_aim_angle, 175, c_white, 0);
+                flux_play_sfx(snd_bombas, 7);
+            }
+            if (tutorial_shots_fired >= 6) {
+                tutorial_timer += _dt;
+                if (tutorial_timer >= 2.0) {
+                    with(obj_ataque_planeta) instance_destroy();
+                    tutorial_state = "phase2_prompt";
+                    tutorial_timer = 0;
+                    tutorial_shots_fired = 0;
+                    tutorial_shot_cooldown = 0.4;
+                    flux_play_sfx(snd_menu_seleccion, 9);
+                }
+            }
+            break;
+            
+        case "phase2_prompt":
+            if (_right) {
+                tutorial_state = "phase2_dodge";
+                tutorial_shots_fired = 0;
+                tutorial_shot_cooldown = 0.4;
+                flux_play_sfx(snd_menu_seleccion, 9);
+            }
+            break;
+            
+        case "phase2_dodge":
+            tutorial_shot_cooldown -= _dt;
+            if (tutorial_shot_cooldown <= 0 && tutorial_shots_fired < 6) {
+                tutorial_shot_cooldown = 0.55;
+                tutorial_shots_fired++;
+                var _aim_angle = _ship.orbit_angle - 6;
+                _planet.emit_bullet(_aim_angle, 175, c_white, 0);
+                flux_play_sfx(snd_bombas, 7);
+            }
+            if (tutorial_shots_fired >= 6) {
+                tutorial_timer += _dt;
+                if (tutorial_timer >= 2.0) {
+                    with(obj_ataque_planeta) instance_destroy();
+                    tutorial_state = "complete";
+                    tutorial_timer = 0;
+                    flux_play_sfx(snd_aceptar_evo, 10);
+                    global.tutorial_completado = true;
+                    save_progress();
+                }
+            }
+            break;
+            
+        case "complete":
+            tutorial_timer += _dt;
+            if (tutorial_timer >= 2.8) {
+                tutorial_active = false;
+                tutorial_state = "none";
+                if (instance_exists(obj_planeta)) {
+                    obj_planeta.alarm[0] = 1;
+                    obj_planeta.attack_state = "cooldown";
+                    obj_planeta.cooldown = 1.0;
+                }
+            }
+            break;
+    }
 };
 if (file_exists("flux_save.ini")) {
     ini_open("flux_save.ini");
@@ -152,6 +326,7 @@ if (file_exists("flux_save.ini")) {
     evolution_deferred=ini_read_real("player","deferred",0)==1;
     equipped_pet = clamp(floor(ini_read_real("player", "pet", -1)), -1, array_length(pets)-1);
     if (equipped_pet >= 0 && !pets[equipped_pet].owned) equipped_pet = -1;
+    global.tutorial_completado = (ini_read_real("player", "tutorial_completed", 0) == 1);
     ini_close();
 }
 rebuild_stats();

@@ -6,9 +6,15 @@ function scr_resetear_progreso() {
     if(file_exists(_archivo)) file_delete(_archivo);
     if(file_exists(_archivo)) return false;
 
+    global.tutorial_completado = false;
+
     // El progreso de Flux reside en el manager referenciado por global.flux.
     if(variable_global_exists("flux") && instance_exists(global.flux)) {
         var _gm=global.flux;
+        _gm.tutorial_active = false;
+        _gm.tutorial_state = "idle";
+        _gm.tutorial_rewind_active = false;
+        _gm.tutorial_fragments = [];
         if(global.pausa) _gm.end_pause(false);
         _gm.state="menu"; // Detiene recompensas y colisiones antes del reinicio.
         _gm.coins=0;

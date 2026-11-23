@@ -1,4 +1,4 @@
-if (gm.state!="playing") exit;
+if (gm.state!="playing" || gm.tutorial_active) exit;
 spawn_timer-=flux_world_dt();
 if (spawn_timer<=0) {
     spawn_timer=random_range(6,9)/gm.stats.buff_spawn_multiplier;
